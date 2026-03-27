@@ -1,0 +1,86 @@
+# @kgcentral/types
+
+TypeScript types dùng chung cho toàn bộ KGCentral monorepo.
+
+## Sử dụng
+
+```typescript
+import type { ApiResponse, User, Locale } from '@kgcentral/types';
+```
+
+## Types
+
+### `Locale`
+
+```typescript
+type Locale = 'vi' | 'en';
+```
+
+### `ApiResponse<T>`
+
+Response chuẩn cho tất cả API endpoints.
+
+```typescript
+interface ApiResponse<T = unknown> {
+  success: boolean;
+  data?: T;
+  error?: {
+    code: string;
+    message: string;
+  };
+  locale: Locale;
+  timestamp: string;
+}
+```
+
+### `PaginationParams`
+
+```typescript
+interface PaginationParams {
+  page: number;
+  limit: number;
+}
+```
+
+### `PaginatedResponse<T>`
+
+```typescript
+interface PaginatedResponse<T> extends ApiResponse<T> {
+  pagination: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPages: number;
+  };
+}
+```
+
+### `User`
+
+```typescript
+interface User {
+  id: string;
+  email: string;
+  name: string;
+  role: 'admin' | 'user';
+  locale: Locale;
+  createdAt: string;
+  updatedAt: string;
+}
+```
+
+### `AuthTokens`
+
+```typescript
+interface AuthTokens {
+  accessToken: string;
+  refreshToken: string;
+  expiresIn: number;
+}
+```
+
+## Sử dụng bởi
+
+- `@kgcentral/frontend`
+- `@kgcentral/backend`
+- `@kgcentral/ui`

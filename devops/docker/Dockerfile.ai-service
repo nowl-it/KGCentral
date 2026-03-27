@@ -1,0 +1,14 @@
+FROM python:3.12-slim
+
+WORKDIR /app
+
+RUN pip install --no-cache-dir uv
+
+COPY apps/ai-service/pyproject.toml ./
+COPY apps/ai-service/src ./src
+
+RUN uv pip install --system --no-cache -r pyproject.toml
+
+EXPOSE 5000
+
+CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "5000"]

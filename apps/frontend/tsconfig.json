@@ -1,0 +1,27 @@
+{
+	"extends": "../../tsconfig.json",
+	"compilerOptions": {
+		"baseUrl": ".",
+		"composite": true,
+		"lib": ["dom", "dom.iterable", "ES2022"],
+		"jsx": "preserve",
+		"incremental": true,
+		"plugins": [
+			{
+				"name": "next"
+			}
+		],
+		"paths": {
+			"@/*": ["./src/*"],
+			"@kgcentral/ui/*": ["../../packages/ui/src/*"]
+		},
+		"isolatedModules": true
+	},
+	"references": [
+		{
+			"path": "../../packages/ui"
+		}
+	],
+	"include": ["next.config.ts", "src/**/*", ".next/types/**/*.ts"],
+	"exclude": ["node_modules"]
+}

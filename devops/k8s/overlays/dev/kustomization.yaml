@@ -1,0 +1,39 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: kgcentral
+
+resources:
+  - ../../base
+
+patches:
+  - patch: |-
+      - op: replace
+        path: /spec/replicas
+        value: 1
+    target:
+      kind: Deployment
+  - patch: |-
+      - op: replace
+        path: /spec/template/spec/containers/0/image
+        value: kgcentral/backend:dev
+    target:
+      kind: Deployment
+      name: backend
+  - patch: |-
+      - op: replace
+        path: /spec/template/spec/containers/0/image
+        value: kgcentral/frontend:dev
+    target:
+      kind: Deployment
+      name: frontend
+  - patch: |-
+      - op: replace
+        path: /spec/template/spec/containers/0/image
+        value: kgcentral/ai-service:dev
+    target:
+      kind: Deployment
+      name: ai-service
+
+commonLabels:
+  env: development

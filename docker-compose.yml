@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: devops/docker/Dockerfile.frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - API_URL=http://backend:4000
+    depends_on:
+      - backend
+    networks:
+      - kgcentral
+
+  backend:
+    build:
+      context: .
+      dockerfile: devops/docker/Dockerfile.backend
+    ports:
+      - "4000:4000"
+    environment:
+      - NODE_ENV=development
+      - PORT=4000
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/kgcentral
+    depends_on:
+      - db
+    networks:
+      - kgcentral
+
+  ai-service:
+    build:
+      context: .
+      dockerfile: devops/docker/Dockerfile.ai-service
+    ports:
+      - "5000:5000"
+    environment:
+      - DEVICE=cpu
+      - LOG_LEVEL=info
+    networks:
+      - kgcentral
+
+  db:
+    image: postgres:17-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=kgcentral
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - kgcentral
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+
+networks:
+  kgcentral:
+    driver: bridge
+
+volumes:
+  postgres_data:
