@@ -25,13 +25,19 @@ import type { Locale } from '@kgcentral/config';
 ## Cấu Hình
 
 | Thuộc tính | Giá trị | Mô tả |
-|------------|---------|--------|
+|------------|---------|-------|
 | `name` | `"KGCentral"` | Tên ứng dụng |
 | `version` | `"1.0.0"` | Phiên bản |
 | `apiPrefix` | `"/api"` | Prefix cho API routes |
-| `defaultLocale` | `"vi"` | Ngôn ngữ mặc định |
+| `defaultLocale` | `"vi"` | Ngôn ngữ mặc định (Tiếng Việt) |
 | `supportedLocales` | `["vi", "en"]` | Các ngôn ngữ hỗ trợ |
 | `corsOrigins` | env `CORS_ORIGINS` | Origins cho CORS |
+
+## Environment Variables
+
+| Biến | Mặc định | Mô tả |
+|------|----------|-------|
+| `CORS_ORIGINS` | `http://localhost:3000` | Danh sách origins (phân cách bằng dấu phẩy) |
 
 ## Sử dụng bởi
 

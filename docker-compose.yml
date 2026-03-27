@@ -8,8 +8,8 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - NODE_ENV=development
-      - API_URL=http://backend:4000
+      - NODE_ENV=production
+      - NEXT_PUBLIC_API_URL=http://localhost:4000
     depends_on:
       - backend
     networks:
@@ -22,9 +22,11 @@ services:
     ports:
       - "4000:4000"
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=production
       - PORT=4000
       - DATABASE_URL=postgresql://postgres:postgres@db:5432/kgcentral
+      - JWT_SECRET=change-this-secret-in-production
+      - CORS_ORIGINS=http://localhost:3000,http://frontend:3000
     depends_on:
       - db
     networks:

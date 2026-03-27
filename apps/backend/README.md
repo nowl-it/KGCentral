@@ -62,12 +62,13 @@ Tất cả endpoints có prefix `/api/v1/`.
 | Method | Endpoint | Body | Mô tả |
 |--------|----------|------|--------|
 | `POST` | `/api/v1/auth/login` | `{ email, password }` | Đăng nhập |
-| `POST` | `/api/v1/auth/register` | `{ email, password, name }` | Đăng ký |
+| `POST` | `/api/v1/auth/register` | `{ email, password, username, name? }` | Đăng ký |
 
 **Validation (Zod):**
 - `email`: email hợp lệ
 - `password`: tối thiểu 6 ký tự
-- `name`: tối thiểu 1 ký tự (chỉ register)
+- `username`: 3-30 ký tự (bắt buộc)
+- `name`: tối thiểu 1 ký tự (tùy chọn)
 
 ### Users
 

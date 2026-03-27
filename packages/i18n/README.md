@@ -4,8 +4,8 @@ Package đa ngôn ngữ cho KGCentral, xây dựng trên **i18next**.
 
 ## Ngôn ngữ hỗ trợ
 
-- 🇻🇳 **Tiếng Việt** (`vi`) - mặc định
-- 🇬🇧 **English** (`en`)
+- **Tiếng Việt** (`vi`) - mặc định
+- **English** (`en`)
 
 ## Sử dụng
 
@@ -70,3 +70,4 @@ i18n.t('common:loading');      // "Loading..."
 ## Sử dụng bởi
 
 - `@kgcentral/backend`
+- `@kgcentral/frontend` (qua React Context)

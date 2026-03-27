@@ -1,50 +1,21 @@
 'use client';
 
+import EN from '@kgcentral/i18n/locales/en';
+import VI from '@kgcentral/i18n/locales/vi';
+import { type Locale } from '@kgcentral/i18n/types';
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
 import { createContext, type ReactNode, useContext, useEffect, useState } from 'react';
-
-type Locale = 'vi' | 'en';
-
-const translations: Record<Locale, Record<string, Record<string, string>>> = {
-	vi: {
-		common: {
-			appName: 'KGCentral',
-			loading: 'Đang tải...',
-			error: 'Đã xảy ra lỗi',
-			create: 'Tạo',
-		},
-		nav: {
-			dashboard: 'Bảng điều khiển',
-		},
-		auth: {
-			login: 'Đăng nhập',
-			email: 'Email',
-			password: 'Mật khẩu',
-		},
-	},
-	en: {
-		common: {
-			appName: 'KGCentral',
-			loading: 'Loading...',
-			error: 'An error occurred',
-			create: 'Create',
-		},
-		nav: {
-			dashboard: 'Dashboard',
-		},
-		auth: {
-			login: 'Login',
-			email: 'Email',
-			password: 'Password',
-		},
-	},
-};
 
 interface I18nContextType {
 	t: (key: string) => string;
 	locale: Locale;
 	setLocale: (locale: Locale) => void;
 }
+
+const translations = {
+	vi: VI,
+	en: EN,
+};
 
 const I18nContext = createContext<I18nContextType>({
 	t: (key) => key,
@@ -89,7 +60,8 @@ export function Providers({ children }: { children: ReactNode }) {
 	};
 
 	const t = (key: string): string => {
-		return getNestedValue(translations[locale] as unknown as Record<string, unknown>, key);
+		const translationsForLocale = translations[locale];
+		return getNestedValue(translationsForLocale, key);
 	};
 
 	return (

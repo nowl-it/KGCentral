@@ -55,14 +55,22 @@ interface PaginatedResponse<T> extends ApiResponse<T> {
 }
 ```
 
+### `Role`
+
+```typescript
+type Role = 'ADMIN' | 'MOD' | 'USER';
+```
+
 ### `User`
 
 ```typescript
 interface User {
   id: string;
   email: string;
-  name: string;
-  role: 'admin' | 'user';
+  username: string;
+  name: string | null;
+  avatar: string | null;
+  role: Role;
   locale: Locale;
   createdAt: string;
   updatedAt: string;
@@ -74,7 +82,6 @@ interface User {
 ```typescript
 interface AuthTokens {
   accessToken: string;
-  refreshToken: string;
   expiresIn: number;
 }
 ```

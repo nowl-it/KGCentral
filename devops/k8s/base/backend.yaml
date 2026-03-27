@@ -28,6 +28,18 @@ spec:
               value: "4000"
             - name: LOG_LEVEL
               value: "info"
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: backend-secrets
+                  key: database-url
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: backend-secrets
+                  key: jwt-secret
+            - name: CORS_ORIGINS
+              value: "http://frontend:3000"
           resources:
             requests:
               memory: "128Mi"
@@ -37,13 +49,13 @@ spec:
               cpu: "500m"
           readinessProbe:
             httpGet:
-              path: /health
+              path: /api/v1/health
               port: 4000
             initialDelaySeconds: 5
             periodSeconds: 10
           livenessProbe:
             httpGet:
-              path: /health
+              path: /api/v1/health
               port: 4000
             initialDelaySeconds: 15
             periodSeconds: 20

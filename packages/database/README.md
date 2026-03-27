@@ -23,8 +23,10 @@ Prisma client được tạo dưới dạng **singleton** - instance được ca
 |-------|------|--------|
 | `id` | `String` (cuid) | Primary key |
 | `email` | `String` (unique) | Email |
-| `name` | `String?` | Tên (tùy chọn) |
-| `password` | `String` | Mật khẩu |
+| `username` | `String` (unique) | Tên đăng nhập |
+| `name` | `String?` | Tên hiển thị (tùy chọn) |
+| `avatar` | `String?` | URL avatar (tùy chọn) |
+| `password` | `String` | Mật khẩu (bcrypt hash) |
 | `role` | `Role` | Vai trò (mặc định: `USER`) |
 | `locale` | `String` | Ngôn ngữ (mặc định: `"vi"`) |
 | `createdAt` | `DateTime` | Thời gian tạo |
@@ -32,8 +34,9 @@ Prisma client được tạo dưới dạng **singleton** - instance được ca
 
 ### Role (Enum)
 
-- `ADMIN`
-- `USER`
+- `ADMIN` - Quản trị viên
+- `MOD` - Moderator
+- `USER` - Người dùng thường
 
 ## Scripts
 

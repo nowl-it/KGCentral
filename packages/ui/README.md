@@ -1,6 +1,6 @@
 # @kgcentral/ui
 
-Design system của KGCentral, xây dựng trên **shadcn/ui v4** và **Tailwind CSS v4**.
+Design system của KGCentral, xây dựng trên **shadcn/ui** và **Tailwind CSS v4**.
 
 ## Cài Đặt
 
@@ -41,7 +41,7 @@ import { cn } from '@kgcentral/ui/lib/utils';
 
 ### Button
 
-6 variants × 8 sizes:
+6 variants x 8 sizes:
 
 **Variants:** `default`, `outline`, `secondary`, `ghost`, `destructive`, `link`
 
@@ -57,15 +57,15 @@ import { cn } from '@kgcentral/ui/lib/utils';
 
 ### Card
 
-Gồm 7 sub-components: `Card`, `CardHeader`, `CardTitle`, `CardDescription`, `CardAction`, `CardContent`, `CardFooter`.
+Gom 7 sub-components: `Card`, `CardHeader`, `CardTitle`, `CardDescription`, `CardAction`, `CardContent`, `CardFooter`.
 
 ```tsx
 <Card>
   <CardHeader>
-    <CardTitle>Tiêu đề</CardTitle>
-    <CardDescription>Mô tả</CardDescription>
+    <CardTitle>Tieu de</CardTitle>
+    <CardDescription>Mo ta</CardDescription>
   </CardHeader>
-  <CardContent>Nội dung</CardContent>
+  <CardContent>Noi dung</CardContent>
   <CardFooter>Footer</CardFooter>
 </Card>
 
@@ -76,17 +76,27 @@ Gồm 7 sub-components: `Card`, `CardHeader`, `CardTitle`, `CardDescription`, `C
 
 ```tsx
 <Input type="email" placeholder="Email" />
-<Input type="password" placeholder="Mật khẩu" />
+<Input type="password" placeholder="Mat khau" />
 ```
 
 ## Theming
 
-Sử dụng **oklch** color space cho tất cả design tokens:
+Su dung **oklch** color space cho tat ca design tokens:
 
-- Hỗ trợ **Light** & **Dark** mode
+- Ho tro **Light** & **Dark** mode
 - CSS variables cho: `background`, `foreground`, `primary`, `secondary`, `muted`, `accent`, `destructive`, `border`, `input`, `ring`
-- Colors bổ sung: `sidebar-*` (5 tokens), `chart-*` (5 colors)
-- Border radius: `sm`, `md`, `lg`, `xl` (dựa trên `--radius: 0.625rem`)
+- Colors bo sung: `sidebar-*` (5 tokens), `chart-*` (5 colors)
+- Border radius: `sm`, `md`, `lg`, `xl` (dua tren `--radius: 0.625rem`)
+
+### Brand Colors
+
+| Color | Hex | Usage |
+|-------|-----|-------|
+| Gold Primary | `#FFD700` | Accents, highlights |
+| Gold Light | `#FFE44D` | Gradients |
+| Gold Dark | `#FFA500` | Gradients |
+| Navy Background | `#1a1a2e` | Dark mode background |
+| Navy Deep | `#16213e` | Gradient variation |
 
 ### Dark mode activation
 
@@ -96,14 +106,14 @@ Sử dụng **oklch** color space cho tất cả design tokens:
 
 ## Exports
 
-| Path | Mô tả |
-|------|--------|
+| Path | Mo ta |
+|------|-------|
 | `@kgcentral/ui/globals.css` | Global styles + CSS variables |
 | `@kgcentral/ui/components/*` | React components |
 | `@kgcentral/ui/lib/*` | Utility functions |
 | `@kgcentral/ui/hooks/*` | React hooks |
 | `@kgcentral/ui/postcss.config` | PostCSS config |
 
-## Sử dụng bởi
+## Su dung boi
 
 - `@kgcentral/frontend`

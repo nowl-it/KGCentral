@@ -7,6 +7,13 @@ async function bootstrap() {
 		logger: ['error', 'warn', 'log', 'debug', 'verbose'],
 	});
 
+	app.enableCors({
+		origin: appConfig.corsOrigins,
+		credentials: true,
+		methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+		allowedHeaders: ['Content-Type', 'Authorization'],
+	});
+
 	const fullVersion = `${appConfig.version}`;
 	const version = fullVersion.split('.').slice(0, 1);
 	const apiPrefix = `${appConfig.apiPrefix}/v${version}`;

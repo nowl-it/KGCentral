@@ -4,7 +4,9 @@ import { Controller, Get, NotFoundException, Param } from '@nestjs/common';
 interface User {
 	id: string;
 	email: string;
+	username: string;
 	name: string | null;
+	avatar: string | null;
 	role: string;
 	locale: string;
 	createdAt: Date;
@@ -29,7 +31,9 @@ export class UsersController {
 			select: {
 				id: true,
 				email: true,
+				username: true,
 				name: true,
+				avatar: true,
 				role: true,
 				locale: true,
 				createdAt: true,
@@ -46,7 +50,9 @@ export class UsersController {
 			select: {
 				id: true,
 				email: true,
+				username: true,
 				name: true,
+				avatar: true,
 				role: true,
 				locale: true,
 				createdAt: true,
