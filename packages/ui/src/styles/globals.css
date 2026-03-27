@@ -10,74 +10,135 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: oklch(0.98 0.01 70);
-  --foreground: oklch(0.15 0.05 300);
-  --card: oklch(0.96 0.02 75);
-  --card-foreground: oklch(0.15 0.05 300);
-  --popover: oklch(0.98 0.01 70);
-  --popover-foreground: oklch(0.15 0.05 300);
-  --primary: oklch(0.7 0.15 90);
-  --primary-foreground: oklch(0.2 0.02 300);
-  --secondary: oklch(0.4 0.15 300);
-  --secondary-foreground: oklch(0.95 0.05 300);
-  --muted: oklch(0.92 0.02 70);
-  --muted-foreground: oklch(0.45 0.05 300);
-  --accent: oklch(0.8 0.1 90);
-  --accent-foreground: oklch(0.2 0.02 300);
-  --destructive: oklch(0.6 0.2 25);
+  /* Light Theme - Royal Castle */
+  --background: oklch(0.97 0.01 60);
+  --foreground: oklch(0.2 0.02 280);
+  
+  --card: oklch(0.99 0.005 70);
+  --card-foreground: oklch(0.2 0.02 280);
+  
+  --popover: oklch(0.99 0.005 70);
+  --popover-foreground: oklch(0.2 0.02 280);
+  
+  /* Royal Gold - Primary */
+  --primary: oklch(0.72 0.18 85);
+  --primary-foreground: oklch(0.2 0.02 280);
+  
+  /* Castle Stone - Secondary */
+  --secondary: oklch(0.55 0.04 260);
+  --secondary-foreground: oklch(0.98 0.01 70);
+  
+  /* Muted Stone */
+  --muted: oklch(0.92 0.015 260);
+  --muted-foreground: oklch(0.5 0.03 260);
+  
+  /* Mystical Purple - Accent */
+  --accent: oklch(0.65 0.2 295);
+  --accent-foreground: oklch(0.98 0.01 70);
+  
+  /* Battle Red - Destructive */
+  --destructive: oklch(0.55 0.22 25);
   --destructive-foreground: oklch(0.98 0.01 70);
-  --border: oklch(0.85 0.05 90);
-  --input: oklch(0.85 0.05 90);
-  --ring: oklch(0.7 0.15 90);
-  --chart-1: oklch(0.7 0.15 90);
-  --chart-2: oklch(0.5 0.15 300);
-  --chart-3: oklch(0.6 0.15 200);
-  --chart-4: oklch(0.8 0.15 150);
-  --chart-5: oklch(0.7 0.15 50);
+  
+  /* Success Green */
+  --success: oklch(0.6 0.17 145);
+  --success-foreground: oklch(0.98 0.01 70);
+  
+  /* Warning Orange */
+  --warning: oklch(0.7 0.18 65);
+  --warning-foreground: oklch(0.2 0.02 280);
+  
+  /* Info Blue */
+  --info: oklch(0.6 0.18 240);
+  --info-foreground: oklch(0.98 0.01 70);
+  
+  --border: oklch(0.85 0.02 260 / 40%);
+  --input: oklch(0.95 0.01 260);
+  --ring: oklch(0.72 0.18 85);
+  
+  /* Chart Colors - Game Stats */
+  --chart-1: oklch(0.72 0.18 85);     /* Gold */
+  --chart-2: oklch(0.65 0.2 295);     /* Purple */
+  --chart-3: oklch(0.6 0.18 240);     /* Blue */
+  --chart-4: oklch(0.6 0.17 145);     /* Green */
+  --chart-5: oklch(0.7 0.18 25);      /* Red */
+  
   --radius: 0.5rem;
-  --sidebar: oklch(0.96 0.02 75);
-  --sidebar-foreground: oklch(0.15 0.05 300);
-  --sidebar-primary: oklch(0.7 0.15 90);
-  --sidebar-primary-foreground: oklch(0.2 0.02 300);
-  --sidebar-accent: oklch(0.9 0.05 90);
-  --sidebar-accent-foreground: oklch(0.2 0.02 300);
-  --sidebar-border: oklch(0.85 0.05 90);
-  --sidebar-ring: oklch(0.7 0.15 90);
+  
+  /* Sidebar - Light Stone Theme */
+  --sidebar: oklch(0.96 0.015 260);
+  --sidebar-foreground: oklch(0.25 0.02 280);
+  --sidebar-primary: oklch(0.72 0.18 85);
+  --sidebar-primary-foreground: oklch(0.2 0.02 280);
+  --sidebar-accent: oklch(0.9 0.02 260);
+  --sidebar-accent-foreground: oklch(0.25 0.02 280);
+  --sidebar-border: oklch(0.85 0.02 260 / 30%);
+  --sidebar-ring: oklch(0.72 0.18 85);
 }
 
 .dark {
-  --background: oklch(0.12 0.04 285);
-  --foreground: oklch(0.95 0.02 85);
-  --card: oklch(0.15 0.06 290);
-  --card-foreground: oklch(0.95 0.02 85);
-  --popover: oklch(0.13 0.05 285);
-  --popover-foreground: oklch(0.95 0.02 85);
-  --primary: oklch(0.78 0.18 95);
-  --primary-foreground: oklch(0.12 0.04 285);
-  --secondary: oklch(0.35 0.2 300);
-  --secondary-foreground: oklch(0.95 0.02 85);
-  --muted: oklch(0.18 0.06 295);
-  --muted-foreground: oklch(0.65 0.05 285);
-  --accent: oklch(0.35 0.2 300);
-  --accent-foreground: oklch(0.95 0.02 85);
-  --destructive: oklch(0.45 0.18 25);
-  --destructive-foreground: oklch(0.95 0.02 85);
-  --border: oklch(0.25 0.05 285 / 40%);
-  --input: oklch(0.25 0.05 285 / 60%);
-  --ring: oklch(0.78 0.18 95);
-  --chart-1: oklch(0.78 0.18 95);
-  --chart-2: oklch(0.55 0.2 300);
-  --chart-3: oklch(0.65 0.18 200);
-  --chart-4: oklch(0.85 0.15 150);
-  --chart-5: oklch(0.75 0.18 50);
-  --sidebar: oklch(0.14 0.05 285);
-  --sidebar-foreground: oklch(0.95 0.02 85);
-  --sidebar-primary: oklch(0.78 0.18 95);
-  --sidebar-primary-foreground: oklch(0.12 0.04 285);
-  --sidebar-accent: oklch(0.22 0.1 295);
-  --sidebar-accent-foreground: oklch(0.95 0.02 85);
-  --sidebar-border: oklch(0.25 0.05 285 / 30%);
-  --sidebar-ring: oklch(0.78 0.18 95);
+  /* Dark Theme - Night Castle */
+  --background: oklch(0.13 0.03 280);
+  --foreground: oklch(0.92 0.015 85);
+  
+  --card: oklch(0.17 0.04 285);
+  --card-foreground: oklch(0.92 0.015 85);
+  
+  --popover: oklch(0.15 0.035 280);
+  --popover-foreground: oklch(0.92 0.015 85);
+  
+  /* Bright Royal Gold - Primary */
+  --primary: oklch(0.8 0.2 90);
+  --primary-foreground: oklch(0.13 0.03 280);
+  
+  /* Dark Stone - Secondary */
+  --secondary: oklch(0.3 0.06 270);
+  --secondary-foreground: oklch(0.92 0.015 85);
+  
+  /* Dark Muted */
+  --muted: oklch(0.22 0.04 280);
+  --muted-foreground: oklch(0.62 0.03 280);
+  
+  /* Bright Mystical Purple - Accent */
+  --accent: oklch(0.7 0.25 300);
+  --accent-foreground: oklch(0.95 0.01 85);
+  
+  /* Bright Battle Red - Destructive */
+  --destructive: oklch(0.58 0.24 25);
+  --destructive-foreground: oklch(0.95 0.01 85);
+  
+  /* Bright Success Green */
+  --success: oklch(0.65 0.2 145);
+  --success-foreground: oklch(0.13 0.03 280);
+  
+  /* Bright Warning Orange */
+  --warning: oklch(0.75 0.2 65);
+  --warning-foreground: oklch(0.13 0.03 280);
+  
+  /* Bright Info Blue */
+  --info: oklch(0.65 0.2 240);
+  --info-foreground: oklch(0.13 0.03 280);
+  
+  --border: oklch(0.3 0.04 280 / 40%);
+  --input: oklch(0.25 0.04 280);
+  --ring: oklch(0.8 0.2 90);
+  
+  /* Chart Colors - Bright for Dark Mode */
+  --chart-1: oklch(0.8 0.2 90);       /* Gold */
+  --chart-2: oklch(0.7 0.25 300);     /* Purple */
+  --chart-3: oklch(0.65 0.2 240);     /* Blue */
+  --chart-4: oklch(0.65 0.2 145);     /* Green */
+  --chart-5: oklch(0.7 0.24 25);      /* Red */
+  
+  /* Sidebar - Dark Stone Theme */
+  --sidebar: oklch(0.15 0.035 280);
+  --sidebar-foreground: oklch(0.88 0.015 85);
+  --sidebar-primary: oklch(0.8 0.2 90);
+  --sidebar-primary-foreground: oklch(0.13 0.03 280);
+  --sidebar-accent: oklch(0.25 0.06 285);
+  --sidebar-accent-foreground: oklch(0.92 0.015 85);
+  --sidebar-border: oklch(0.3 0.04 280 / 30%);
+  --sidebar-ring: oklch(0.8 0.2 90);
 }
 
 @theme inline {
@@ -97,6 +158,12 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
@@ -119,13 +186,15 @@
   --color-sidebar-ring: var(--sidebar-ring);
 
   --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-heading: var(--font-heading), "Silkscreen", "Press Start 2P", monospace;
+  --font-heading: var(--font-heading), ui-serif, Georgia, serif;
 
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
 
   --animate-royal-pulse: royal-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-gold-shimmer: gold-shimmer 2.5s linear infinite;
+  --animate-castle-float: castle-float 3s ease-in-out infinite;
   
   @keyframes royal-pulse {
     0%, 100% {
@@ -137,24 +206,162 @@
       transform: scale(1.02);
     }
   }
+
+  @keyframes gold-shimmer {
+    0% {
+      background-position: -100% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
+  @keyframes castle-float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
 }
 
 @layer utilities {
+  /* Royal Gold Border - Enhanced */
   .gold-border {
-    border: 1px solid var(--primary);
+    border: 2px solid transparent;
     background: linear-gradient(var(--card), var(--card)) padding-box,
-                linear-gradient(to bottom right, oklch(0.8 0.2 90), oklch(0.6 0.15 80)) border-box;
-    border-color: transparent;
+                linear-gradient(135deg, 
+                  oklch(0.85 0.22 85),
+                  oklch(0.72 0.18 75),
+                  oklch(0.85 0.22 85)) border-box;
+    box-shadow: 0 0 12px oklch(0.72 0.18 85 / 0.2);
   }
 
+  /* Mystical Purple Border */
+  .purple-border {
+    border: 2px solid transparent;
+    background: linear-gradient(var(--card), var(--card)) padding-box,
+                linear-gradient(135deg,
+                  oklch(0.7 0.25 300),
+                  oklch(0.6 0.2 290),
+                  oklch(0.7 0.25 300)) border-box;
+    box-shadow: 0 0 12px oklch(0.65 0.2 295 / 0.3);
+  }
+
+  /* Text Effects */
   .text-shadow-gold {
-    text-shadow: 0 0 8px oklch(var(--primary) / 0.5);
+    text-shadow: 0 0 12px oklch(0.72 0.18 85 / 0.6),
+                 0 2px 4px oklch(0 0 0 / 0.3);
+  }
+
+  .text-shadow-purple {
+    text-shadow: 0 0 12px oklch(0.65 0.2 295 / 0.6),
+                 0 2px 4px oklch(0 0 0 / 0.3);
+  }
+
+  .text-gold-gradient {
+    background: linear-gradient(135deg,
+                  oklch(0.85 0.22 85),
+                  oklch(0.72 0.18 75),
+                  oklch(0.65 0.15 70));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-purple-gradient {
+    background: linear-gradient(135deg,
+                  oklch(0.75 0.25 300),
+                  oklch(0.65 0.2 295),
+                  oklch(0.55 0.18 285));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Castle Card Styles */
+  .card-castle {
+    background: linear-gradient(135deg,
+                  var(--card) 0%,
+                  oklch(from var(--card) calc(l + 0.02) c h) 100%);
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 12px oklch(0 0 0 / 0.08),
+                0 0 0 1px oklch(0 0 0 / 0.04);
+  }
+
+  .card-royal {
+    background: linear-gradient(135deg,
+                  var(--card) 0%,
+                  oklch(from var(--card) calc(l + 0.02) c h) 100%);
+    border: 2px solid transparent;
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+    background-image: linear-gradient(var(--card), var(--card)),
+                      linear-gradient(135deg,
+                        oklch(0.8 0.2 85),
+                        oklch(0.65 0.2 295));
+    box-shadow: 0 8px 24px oklch(0.72 0.18 85 / 0.15);
+  }
+
+  /* Button Effects */
+  .btn-gold-shimmer {
+    background: linear-gradient(90deg,
+                  oklch(0.72 0.18 85) 0%,
+                  oklch(0.8 0.22 90) 50%,
+                  oklch(0.72 0.18 85) 100%);
+    background-size: 200% 100%;
+    animation: gold-shimmer 2.5s linear infinite;
+  }
+
+  /* Tier Colors for Character Rankings */
+  .tier-s {
+    color: oklch(0.8 0.2 90);
+  }
+
+  .tier-a {
+    color: oklch(0.7 0.25 300);
+  }
+
+  .tier-b {
+    color: oklch(0.65 0.2 240);
+  }
+
+  .tier-c {
+    color: oklch(0.65 0.2 145);
+  }
+
+  .tier-d {
+    color: oklch(0.6 0.15 280);
+  }
+
+  /* Rarity Colors for Game Items */
+  .rarity-legendary {
+    color: oklch(0.75 0.22 60);
+    text-shadow: 0 0 8px oklch(0.75 0.22 60 / 0.5);
+  }
+
+  .rarity-epic {
+    color: oklch(0.7 0.25 300);
+    text-shadow: 0 0 8px oklch(0.7 0.25 300 / 0.5);
+  }
+
+  .rarity-rare {
+    color: oklch(0.65 0.2 240);
+    text-shadow: 0 0 8px oklch(0.65 0.2 240 / 0.5);
+  }
+
+  .rarity-common {
+    color: oklch(0.65 0.05 260);
   }
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
+  }
+  html, body {
+    @apply h-full w-full;
   }
   body {
     @apply bg-background text-foreground font-sans antialiased;

@@ -2,12 +2,17 @@
 
 import EN from '@kgcentral/i18n/locales/en';
 import VI from '@kgcentral/i18n/locales/vi';
-import { type Locale } from '@kgcentral/i18n/types';
+import {
+	type Locale,
+	type NamespaceKeys,
+	type TranslationKey,
+	type TranslationNamespace,
+} from '@kgcentral/i18n/types';
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
 import { createContext, type ReactNode, useContext, useEffect, useState } from 'react';
 
 interface I18nContextType {
-	t: (key: string) => string;
+	t: (key: TranslationKey, fallback?: string) => string;
 	locale: Locale;
 	setLocale: (locale: Locale) => void;
 }
@@ -23,8 +28,33 @@ const I18nContext = createContext<I18nContextType>({
 	setLocale: () => {},
 });
 
-export function useI18n() {
-	return useContext(I18nContext);
+// Overload signatures for type safety
+export function useI18n(): I18nContextType;
+export function useI18n<N extends TranslationNamespace>(
+	namespace: N,
+): Omit<I18nContextType, 't'> & {
+	t: (key: NamespaceKeys<N>, fallback?: string) => string;
+};
+
+export function useI18n<N extends TranslationNamespace>(namespace?: N) {
+	const context = useContext(I18nContext);
+
+	if (!namespace) {
+		return context;
+	}
+
+	// Return scoped translation function
+	const scopedT = (key: string, fallback?: string): string => {
+		const fullKey = `${namespace}.${key}` as TranslationKey;
+		const result = context.t(fullKey);
+		// If translation not found and fallback provided, use fallback
+		return result === fullKey && fallback ? fallback : result;
+	};
+
+	return {
+		...context,
+		t: scopedT,
+	};
 }
 
 function getNestedValue(obj: Record<string, unknown>, path: string): string {
@@ -59,9 +89,11 @@ export function Providers({ children }: { children: ReactNode }) {
 		localStorage.setItem('locale', newLocale);
 	};
 
-	const t = (key: string): string => {
+	const t = (key: TranslationKey, fallback?: string): string => {
 		const translationsForLocale = translations[locale];
-		return getNestedValue(translationsForLocale, key);
+		const result = getNestedValue(translationsForLocale, key);
+		// If not found and fallback provided, use fallback
+		return result === key && fallback ? fallback : result;
 	};
 
 	return (

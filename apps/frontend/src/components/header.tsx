@@ -1,11 +1,14 @@
+'use client';
+
 import { Button } from '@kgcentral/ui/components/button';
 import Image from 'next/image';
 import Link from 'next/link';
 
 export default function HeaderComponent() {
 	return (
-		<header className="flex h-16 w-full items-center justify-between border-b bg-background/80 px-4 backdrop-blur-md">
-			<Link href="/" className="flex items-center gap-2 hover:opacity-90 transition-opacity">
+		<header className="flex h-16 w-full items-center justify-between border-b border-border/50 bg-background/95 px-4 shadow-sm backdrop-blur-md supports-[backdrop-filter]:bg-background/80">
+			{/* Logo with Royal theme */}
+			<Link href="/" className="group flex items-center gap-3 transition-all hover:scale-105">
 				<Image
 					priority
 					quality={100}
@@ -13,15 +16,19 @@ export default function HeaderComponent() {
 					alt="KGCentral Logo"
 					width={1251}
 					height={247}
-					className="h-10 w-auto select-none"
+					className="h-10 w-auto select-none transition-all group-hover:drop-shadow-[0_0_12px_oklch(0.72_0.18_85/0.3)]"
 				/>
 			</Link>
-			<div className="flex items-center gap-4">
-				<Button asChild variant="outline" size="lg" className="border-primary text-primary">
+
+			{/* Action buttons with Royal theme */}
+			<div className="flex items-center gap-3">
+				<Button asChild variant="outline" size="lg">
 					<Link href="/auth/sign-in">Sign In</Link>
 				</Button>
-				<Button asChild variant="secondary" size="lg">
-					<Link href="/auth/sign-up">Get Started</Link>
+				<Button asChild size="lg" className="gold-border text-primary" variant="outline">
+					<Link href="/auth/sign-up" className="font-heading">
+						Get Started
+					</Link>
 				</Button>
 			</div>
 		</header>

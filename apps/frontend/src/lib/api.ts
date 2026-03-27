@@ -42,7 +42,7 @@ class ApiClient {
 
 		const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
 		if (token) {
-			(headers as Record<string, string>)['Authorization'] = `Bearer ${token}`;
+			(headers as Record<string, string>).Authorization = `Bearer ${token}`;
 		}
 
 		try {

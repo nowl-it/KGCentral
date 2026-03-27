@@ -10,62 +10,124 @@ import {
 	NavigationMenuTrigger,
 	navigationMenuTriggerStyle,
 } from '@kgcentral/ui/components/navigation-menu';
+import { BookOpen, Castle, Lightbulb, Sparkles, Swords, Trophy, Users, Wand2 } from 'lucide-react';
 import Link from 'next/link';
 import ThemeToggleComponent from './theme-toggle';
 
 export default function NavigationComponent() {
 	return (
-		<NavigationMenu className="px-4 w-full max-w-full flex top-0 place-content-start content-start justify-between sticky gold-border">
+		<NavigationMenu className="sticky top-0 z-40 h-10 w-full max-w-full flex place-content-start content-start justify-between border-b border-border/30 bg-card/80 px-4 shadow-sm backdrop-blur-md supports-[backdrop-filter]:bg-card/60">
 			<NavigationMenuList className="relative">
+				{/* Wiki */}
 				<NavigationMenuItem>
-					<NavigationMenuTrigger>Getting started</NavigationMenuTrigger>
+					<NavigationMenuTrigger className="gap-2 font-heading">
+						<BookOpen className="size-4 text-primary" />
+						Wiki
+					</NavigationMenuTrigger>
 					<NavigationMenuContent>
-						<ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-							<li className="row-span-3">
-								<NavigationMenuLink asChild>
-									{/* This is the nested menu */}
-
-									<NavigationMenu className="flex flex-col top-0 place-content-start content-start">
-										<NavigationMenuList className="relative">
-											<NavigationMenuItem>
-												<NavigationMenuTrigger>
-													shadcn
-												</NavigationMenuTrigger>
-												<NavigationMenuContent>
-													<div> hi</div>
-												</NavigationMenuContent>
-											</NavigationMenuItem>
-										</NavigationMenuList>
-									</NavigationMenu>
-								</NavigationMenuLink>
-							</li>
-							<NavigationMenuListItem href="/docs" title="Introduction">
-								Re-usable components built using Radix UI and Tailwind CSS.
-							</NavigationMenuListItem>
-							<NavigationMenuListItem href="/docs/installation" title="Installation">
-								How to install dependencies and structure your app.
+						<ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2">
+							<NavigationMenuListItem
+								href="/wiki/heroes"
+								title="🏆 Heroes"
+								icon={<Trophy className="size-5 text-primary" />}
+							>
+								Tất cả tướng trong game - stats, skills, và tier rankings
 							</NavigationMenuListItem>
 							<NavigationMenuListItem
-								href="/docs/primitives/typography"
-								title="Typography"
+								href="/wiki/equipment"
+								title="⚔️ Equipment"
+								icon={<Swords className="size-5 text-accent" />}
 							>
-								Styles for headings, paragraphs, lists...etc
+								Trang bị, vũ khí và armor - stats và tier list
+							</NavigationMenuListItem>
+							<NavigationMenuListItem
+								href="/wiki/altars"
+								title="🏰 Altars"
+								icon={<Castle className="size-5 text-info" />}
+							>
+								Thông tin về altars và buffs
+							</NavigationMenuListItem>
+							<NavigationMenuListItem
+								href="/wiki/relics"
+								title="✨ Relics"
+								icon={<Sparkles className="size-5 text-warning" />}
+							>
+								Relics và passive effects
 							</NavigationMenuListItem>
 						</ul>
 					</NavigationMenuContent>
 				</NavigationMenuItem>
+
+				{/* Team Builder */}
 				<NavigationMenuItem>
-					<NavigationMenuTrigger>Components</NavigationMenuTrigger>
+					<NavigationMenuTrigger className="gap-2 font-heading">
+						<Users className="size-4 text-accent" />
+						Team Builder
+					</NavigationMenuTrigger>
 					<NavigationMenuContent>
-						<div> hi</div>
+						<ul className="grid w-[400px] gap-3 p-4">
+							<NavigationMenuListItem
+								href="/team-builder"
+								title="🎯 Build Team"
+								icon={<Users className="size-5 text-accent" />}
+							>
+								Xây dựng đội hình với drag-and-drop interface
+							</NavigationMenuListItem>
+							<NavigationMenuListItem
+								href="/team-builder/saved"
+								title="💾 Saved Teams"
+								icon={<BookOpen className="size-5 text-success" />}
+							>
+								Xem và quản lý các đội hình đã lưu
+							</NavigationMenuListItem>
+						</ul>
 					</NavigationMenuContent>
 				</NavigationMenuItem>
+
+				{/* AI Recommendations */}
 				<NavigationMenuItem>
-					<NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-						<Link href="/docs">Documentation</Link>
+					<NavigationMenuLink
+						asChild
+						className={`${navigationMenuTriggerStyle()} gap-2 font-heading`}
+					>
+						<Link href="/ai-recommendations">
+							<Wand2 className="size-4 text-accent" />
+							<span className="text-purple-gradient">AI Suggest</span>
+							<span className="ml-1 rounded bg-accent/20 px-1.5 py-0.5 text-[10px] font-medium text-accent">
+								NEW
+							</span>
+						</Link>
+					</NavigationMenuLink>
+				</NavigationMenuItem>
+
+				{/* Tier List */}
+				<NavigationMenuItem>
+					<NavigationMenuLink
+						asChild
+						className={`${navigationMenuTriggerStyle()} gap-2 font-heading`}
+					>
+						<Link href="/tier-list">
+							<Trophy className="size-4 text-primary" />
+							Tier List
+						</Link>
+					</NavigationMenuLink>
+				</NavigationMenuItem>
+
+				{/* Guides */}
+				<NavigationMenuItem>
+					<NavigationMenuLink
+						asChild
+						className={`${navigationMenuTriggerStyle()} gap-2 font-heading`}
+					>
+						<Link href="/guides">
+							<Lightbulb className="size-4 text-warning" />
+							Guides
+						</Link>
 					</NavigationMenuLink>
 				</NavigationMenuItem>
 			</NavigationMenuList>
+
+			{/* Theme Toggle */}
 			<ThemeToggleComponent />
 		</NavigationMenu>
 	);
