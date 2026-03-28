@@ -193,7 +193,14 @@ Locale mặc định có thể thay đổi qua config hoặc theo preference ng�
 
 ## Tài Liệu
 
+### Đề cương & Đánh giá
+
 - [PROPOSAL.md](./PROPOSAL.md) - Đề cương đồ án chi tiết
+- [SECURITY_AUDIT.md](./SECURITY_AUDIT.md) - 🔐 Báo cáo đánh giá bảo mật (19 lỗ hổng phát hiện)
+- [CODE_QUALITY_REVIEW.md](./CODE_QUALITY_REVIEW.md) - 📊 Đánh giá chất lượng code từ giảng viên
+
+### Component Documentation
+
 - [apps/frontend/README.md](./apps/frontend/README.md) - Frontend documentation
 - [apps/backend/README.md](./apps/backend/README.md) - Backend documentation
 - [apps/ai-service/README.md](./apps/ai-service/README.md) - AI Service documentation
