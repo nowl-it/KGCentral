@@ -13,7 +13,8 @@
 		],
 		"paths": {
 			"@/*": ["./src/*"],
-			"@kgcentral/ui/*": ["../../packages/ui/src/*"]
+			"@kgcentral/ui/*": ["../../packages/ui/src/*"],
+			"@kgcentral/i18n/*": ["../../packages/i18n/src/*"]
 		},
 		"isolatedModules": true
 	},

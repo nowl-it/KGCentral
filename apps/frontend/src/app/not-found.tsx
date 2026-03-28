@@ -2,13 +2,13 @@
 
 import { Button } from '@kgcentral/ui/components/button';
 import Link from 'next/link';
-import { useI18n } from '@/components/providers';
+import { useT } from 'next-i18next/client';
 
 export default function NotFound() {
-	const { t } = useI18n('common');
+	const { t } = useT('common');
 
 	return (
-		<div className="flex flex-col items-center justify-center px-4 min-h-full">
+		<div className="flex flex-col items-center justify-center px-4 min-h-screen">
 			<div className="text-center space-y-6 max-w-lg">
 				{/* 404 Icon */}
 				<div className="relative flex items-center justify-center space-x-4">

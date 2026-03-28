@@ -11,13 +11,33 @@ import {
 	navigationMenuTriggerStyle,
 } from '@kgcentral/ui/components/navigation-menu';
 import { BookOpen, Castle, Lightbulb, Sparkles, Swords, Trophy, Users, Wand2 } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
+import LanguageSwitcher from './language-switcher';
 import ThemeToggleComponent from './theme-toggle';
 
 export default function NavigationComponent() {
 	return (
-		<NavigationMenu className="sticky top-0 z-40 h-10 w-full max-w-full flex place-content-start content-start justify-between border-b border-border/30 bg-card/80 px-4 shadow-sm backdrop-blur-md supports-[backdrop-filter]:bg-card/60">
+		<NavigationMenu className="sticky top-0 z-40 w-full max-w-full flex place-content-start content-start justify-between border-b border-border/30 bg-card/80 p-2 h-14 shadow-sm backdrop-blur-md supports-backdrop-filter:bg-card/60">
 			<NavigationMenuList className="relative">
+				{/* Forum */}
+				<NavigationMenuItem>
+					<NavigationMenuLink
+						asChild
+						className={`${navigationMenuTriggerStyle()} gap-2 font-heading`}
+					>
+						<Link href="/">
+							<Image
+								src="/images/logo.png"
+								alt="Forum Icon"
+								className="size-6"
+								width={1024}
+								height={1024}
+							/>
+							Forum
+						</Link>
+					</NavigationMenuLink>
+				</NavigationMenuItem>
 				{/* Wiki */}
 				<NavigationMenuItem>
 					<NavigationMenuTrigger className="gap-2 font-heading">
@@ -127,8 +147,12 @@ export default function NavigationComponent() {
 				</NavigationMenuItem>
 			</NavigationMenuList>
 
-			{/* Theme Toggle */}
-			<ThemeToggleComponent />
+			<div>
+				{/* Theme Toggle */}
+				<ThemeToggleComponent />
+				{/* LanguageSwitcher */}
+				<LanguageSwitcher />
+			</div>
 		</NavigationMenu>
 	);
 }

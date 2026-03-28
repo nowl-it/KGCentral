@@ -11,11 +11,11 @@ import {
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Fragment } from 'react';
-import { useI18n } from './providers';
+import { useTranslation } from 'react-i18next';
 
 export default function LinksHierarchyComponent() {
 	const pathname = usePathname();
-	const { t } = useI18n('breadcrumbs');
+	const { t } = useTranslation('breadcrumbs');
 
 	const segments = pathname.split('/').filter(Boolean);
 
@@ -28,16 +28,22 @@ export default function LinksHierarchyComponent() {
 
 		return {
 			href: `/${segments.slice(0, index + 1).join('/')}`,
-			label: t(segment as any, fallback),
+			label: t(segment, { defaultValue: fallback }),
 		};
 	});
 
+	if (breadcrumbs.length === 0) {
+		return null;
+	}
+
 	return (
-		<Breadcrumb className="sticky top-10 p-2 px-6.5 bg-background/20 backdrop-blur z-10">
+		<Breadcrumb className="sticky top-14 p-2 px-6.5 bg-background/20 backdrop-blur z-10 border-y">
 			<BreadcrumbList>
 				<BreadcrumbItem>
 					<BreadcrumbLink asChild>
-						<Link href="/">{t('home')}</Link>
+						<Link href="/" suppressHydrationWarning>
+							{t('home')}
+						</Link>
 					</BreadcrumbLink>
 				</BreadcrumbItem>
 				{breadcrumbs.map((item, i) => (
@@ -45,10 +51,14 @@ export default function LinksHierarchyComponent() {
 						<BreadcrumbSeparator />
 						<BreadcrumbItem>
 							{i === breadcrumbs.length - 1 ? (
-								<BreadcrumbPage>{item.label}</BreadcrumbPage>
+								<BreadcrumbPage suppressHydrationWarning>
+									{item.label}
+								</BreadcrumbPage>
 							) : (
 								<BreadcrumbLink asChild>
-									<Link href={item.href}>{item.label}</Link>
+									<Link href={item.href} suppressHydrationWarning>
+										{item.label}
+									</Link>
 								</BreadcrumbLink>
 							)}
 						</BreadcrumbItem>

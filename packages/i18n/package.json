@@ -6,9 +6,10 @@
 	"main": "./src/index.ts",
 	"types": "./src/index.ts",
 	"exports": {
-		"./types": "./src/types.ts",
+		"./locales": "./src/locales",
 		"./locales/*": [
-			"./src/locales/*/index.ts"
+			"./src/locales/*",
+			"./src/locales/**/*.json"
 		]
 	},
 	"scripts": {
@@ -16,10 +17,12 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"i18next": "^24.2.2",
-		"@kgcentral/config": "workspace:*"
+		"@kgcentral/config": "workspace:*",
+		"i18next": "^25.10.10",
+		"next-i18next": "^16.0.3",
+		"react-i18next": "^17.0.0"
 	},
 	"devDependencies": {
-		"typescript": "^5.7.3"
+		"typescript": "^5.9.3"
 	}
 }

@@ -12,8 +12,12 @@ export default function Loading() {
 				<div className="flex items-center space-x-1">
 					<span className="text-sm font-medium text-muted-foreground">Đang tải</span>
 					<span className="flex space-x-1">
-						<span className="animate-bounce [animation-delay:-0.3s] text-muted-foreground">.</span>
-						<span className="animate-bounce [animation-delay:-0.15s] text-muted-foreground">.</span>
+						<span className="animate-bounce [animation-delay:-0.3s] text-muted-foreground">
+							.
+						</span>
+						<span className="animate-bounce [animation-delay:-0.15s] text-muted-foreground">
+							.
+						</span>
 						<span className="animate-bounce text-muted-foreground">.</span>
 					</span>
 				</div>

@@ -1,1 +1,79 @@
-{}
+{
+	"name": "KGCentral - King God Castle Community",
+	"short_name": "KGCentral",
+	"description": "Cộng đồng King God Castle: Wiki, Team Builder với AI, Tier List voting",
+	"start_url": "/",
+	"display": "standalone",
+	"background_color": "#ffffff",
+	"theme_color": "#8b5cf6",
+	"orientation": "portrait-primary",
+	"lang": "vi",
+	"dir": "ltr",
+	"scope": "/",
+	"icons": [
+		{
+			"src": "/favicon.ico",
+			"sizes": "32x32",
+			"type": "image/x-icon"
+		},
+		{
+			"src": "/images/logo.png",
+			"sizes": "512x512",
+			"type": "image/png",
+			"purpose": "any"
+		},
+		{
+			"src": "/images/logo.png",
+			"sizes": "512x512",
+			"type": "image/png",
+			"purpose": "maskable"
+		}
+	],
+	"screenshots": [
+		{
+			"src": "/images/logo-full.png",
+			"sizes": "1920x1080",
+			"type": "image/png",
+			"form_factor": "wide"
+		}
+	],
+	"categories": ["games", "entertainment", "utilities"],
+	"shortcuts": [
+		{
+			"name": "Wiki",
+			"short_name": "Wiki",
+			"description": "Tra cứu thông tin nhân vật và vật phẩm",
+			"url": "/wiki",
+			"icons": [
+				{
+					"src": "/images/icons/wiki.png",
+					"sizes": "96x96"
+				}
+			]
+		},
+		{
+			"name": "Team Builder",
+			"short_name": "Team",
+			"description": "Xây dựng đội hình với AI",
+			"url": "/team-builder",
+			"icons": [
+				{
+					"src": "/images/icons/team-builder.png",
+					"sizes": "96x96"
+				}
+			]
+		},
+		{
+			"name": "Tier List",
+			"short_name": "Tier",
+			"description": "Bảng xếp hạng nhân vật",
+			"url": "/tier-list",
+			"icons": [
+				{
+					"src": "/images/icons/tierlist.png",
+					"sizes": "96x96"
+				}
+			]
+		}
+	]
+}

@@ -8,7 +8,7 @@ export default function Home() {
 	return (
 		<main className="min-h-screen">
 			{/* Hero Section */}
-			<section className="relative overflow-hidden bg-gradient-to-b from-background via-background to-muted/30 px-4 py-16 md:py-24">
+			<section className="relative overflow-hidden bg-linear-to-b from-background via-background to-muted/30 px-4 py-16 md:py-24">
 				<div className="container mx-auto max-w-6xl">
 					<div className="text-center space-y-6">
 						{/* Crown Icon with animation */}
@@ -60,7 +60,7 @@ export default function Home() {
 				</div>
 
 				{/* Decorative gradient overlay */}
-				<div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,_var(--primary)_0%,_transparent_50%)] opacity-10" />
+				<div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,var(--primary)_0%,transparent_50%)] opacity-10" />
 			</section>
 
 			{/* Features Section */}
@@ -174,7 +174,7 @@ export default function Home() {
 			</section>
 
 			{/* CTA Section */}
-			<section className="px-4 py-16 bg-gradient-to-t from-background to-muted/30">
+			<section className="px-4 py-16 bg-linear-to-t from-background to-muted/30">
 				<div className="container mx-auto max-w-4xl text-center">
 					<div className="card-royal p-8 md:p-12 rounded-2xl">
 						<Crown className="size-16 text-primary mx-auto mb-6 animate-royal-pulse" />
