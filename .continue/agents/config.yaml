@@ -11,10 +11,9 @@ models:
       - chat
       - edit
       - apply
-      - autocomplete   # dùng chung luôn cho vibe coding mượt
     defaultCompletionOptions:
       temperature: 0.7
       maxTokens: 2048
-      keepAlive: 3600   # giữ model load lâu hơn, giảm lag
+      keepAlive: 3600
     requestOptions:
       timeout: 180
