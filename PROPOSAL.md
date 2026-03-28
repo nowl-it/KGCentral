@@ -324,7 +324,7 @@ graph TB
         Browser["🌐 Browser"]
     end
 
-    subgraph "Frontend - Next.js 15"
+    subgraph "Frontend - Next.js 16"
         SSR["Server-Side Rendering"]
         SSG["Static Site Generation<br/>(Wiki pages)"]
         CSR["Client-Side<br/>(Team Builder, Forum)"]
@@ -358,7 +358,7 @@ graph TB
 ```
 KGCentral/
 ├── apps/
-│   ├── frontend/                # Next.js 15 (App Router)
+│   ├── frontend/                # Next.js 16 (App Router)
 │   │   └── src/
 │   │       ├── app/             # Routes (wiki, teams, forum, auth)
 │   │       ├── components/      # UI components
@@ -672,7 +672,7 @@ erDiagram
 
 ### 6.2. Lý do chọn công nghệ
 
-- **Next.js 15 (SSG)**: Wiki pages cần SEO - SSG pre-render tại build time → Google index được, load nhanh. Team Builder cần interactivity → Client Components.
+- **Next.js 16 (SSG)**: Wiki pages cần SEO - SSG pre-render tại build time → Google index được, load nhanh. Team Builder cần interactivity → Client Components.
 - **NestJS (Modules + DI)**: Kiến trúc module tách biệt Wiki/Teams/Forum/Auth, mỗi module có controller + service + repository riêng. Dependency Injection (DI) giúp RecommendationService inject được vào TeamService dễ dàng.
 - **PostgreSQL (FTS + pg_trgm)**: Full-text search tích hợp - không cần thêm Elasticsearch. `pg_trgm` cho fuzzy search tên tướng. JSON columns cho flexible game data (hero stats thay đổi theo star level).
 - **Prisma**: Auto-generate TypeScript types từ schema → type-safe queries → giảm bugs runtime. Migration system tốt.
@@ -1181,7 +1181,314 @@ Relic: Insignia, Mask, Banner
 
 ---
 
-## 14. Tài Liệu Tham Khảo
+## 14. Trạng Thái Triển Khai (Implementation Status)
+
+> **Cập nhật:** 28/03/2026 - Giai đoạn đầu phát triển
+
+### 14.1. Tổng Quan
+
+**Tiến độ tổng thể:** ~25% hoàn thành
+
+| Component | Status | Completion |
+|-----------|--------|------------|
+| **Frontend** | 🟡 Partial | 30% |
+| **Backend** | 🟡 Partial | 20% |
+| **AI Service** | 🔴 Scaffolding | 5% |
+| **Database** | 🔴 Minimal | 10% |
+| **DevOps** | 🟢 Complete | 95% |
+
+### 14.2. Chi Tiết Triển Khai
+
+#### Frontend (apps/frontend) - 30% ✅
+
+**✅ Đã Hoàn Thành:**
+- Landing page với hero section, feature showcase (6 cards)
+- Navigation system với dropdown menus
+- Theme switching (Light/Dark/System) using next-themes
+- i18n full support (Vietnamese/English)
+- 7 layout components: Header, Navigation, Footer, Breadcrumb, Theme Toggle, Language Switcher
+- SEO metadata đầy đủ (Open Graph, Twitter Cards)
+- PWA manifest với app shortcuts
+- Responsive design (mobile-first)
+- Custom 404 page
+- Design system reference page (/secret/color-palette)
+
+**🔲 Chưa Triển Khai:**
+- Wiki pages (Heroes, Equipment, Altars, Relics) - **0%**
+- Team Builder interface với drag-and-drop - **0%**
+- AI Recommendations UI - **0%**
+- Tier List voting interface - **0%**
+- Authentication pages (Sign In, Sign Up) - **0%**
+- Forum/Community pages - **0%**
+- User profile pages - **0%**
+- Guides section - **0%**
+
+**Dependencies:**
+- Next.js 16.2.1, React 19.2.4
+- @kgcentral/ui (7 components: Button, Card, Navigation, Breadcrumb, Dropdown, Input, ColorPalette)
+- @kgcentral/i18n (vi/en translations, 3 namespaces)
+- Tailwind CSS v4.2.2
+- shadcn/ui components
+
+---
+
+#### Backend (apps/backend) - 20% ⚠️
+
+**✅ Đã Hoàn Thành:**
+- 5 API endpoints working:
+  - `POST /auth/login` - JWT authentication ✅
+  - `POST /auth/register` - User registration ✅
+  - `GET /users` - List all users ✅
+  - `GET /users/:id` - Get user by ID ✅
+  - `GET /` và `GET /health` - API info & health check ✅
+- JWT token generation (7-day expiry)
+- bcrypt password hashing (10 salt rounds)
+- Zod validation for auth inputs
+- CORS middleware configured
+- Prisma ORM integrated với PostgreSQL
+
+**🔴 Critical Issues:**
+- **NO AUTHENTICATION GUARDS** - All endpoints are unprotected!
+  - Users endpoint accessible without login
+  - No JWT verification middleware
+  - No role-based access control
+- **NO SERVICE LAYER** - All business logic in controllers (anti-pattern)
+- **NO ERROR HANDLING** - No global exception filters
+- **NO LOGGING** - No request/response logging
+- **NO RATE LIMITING** - Vulnerable to brute force attacks
+- **WEAK PASSWORD POLICY** - Only 6 characters minimum
+
+**🔲 Chưa Triển Khai:**
+- Wiki modules (Heroes, Equipment, Altars, Relics) - **0%**
+- Team Builder CRUD endpoints - **0%**
+- Recommendation Service (Synergy Scoring) - **0%**
+- Tier List voting endpoints - **0%**
+- Forum modules (Threads, Replies) - **0%**
+- Search Service (PostgreSQL FTS) - **0%**
+- File upload service - **0%**
+- Pagination for list endpoints - **0%**
+
+**Dependencies:**
+- NestJS 11.0.8
+- Prisma ORM
+- JWT + bcrypt
+- Zod validation
+- @kgcentral/database (User model only)
+
+---
+
+#### AI Service (apps/ai-service) - 5% 🔴
+
+**✅ Infrastructure Only:**
+- FastAPI server structure ✅
+- Route structure (/health, /inference, /models) ✅
+- Configuration system (Pydantic Settings) ✅
+- i18n support (vi/en) ✅
+- Health check endpoint ✅
+
+**🔴 NOT IMPLEMENTED:**
+- **PyTorch NOT INTEGRATED** - Listed in dependencies but zero imports
+- **All endpoints return MOCK DATA:**
+  - `POST /api/v1/inference/` → Hardcoded `{"prediction": "mock_result", "confidence": 0.95}`
+  - `GET /api/v1/models/` → Hardcoded list of 2 fake models
+  - `POST /api/v1/models/load` → Stub only, returns success without action
+  - `POST /api/v1/models/unload` → Stub only, returns success without action
+- **No model files exist** - `/models` directory unused
+- **No tensor processing** - No actual AI computation
+- **No Synergy Scoring algorithm** - Core feature not implemented
+- **No model loading logic** - `torch.load()` never called
+- **No inference execution** - No forward pass, no predictions
+
+**🔲 Planned Features (0% complete):**
+- Synergy Scoring algorithm implementation
+- PyTorch model training/inference
+- Team recommendation engine
+- Model management (load/unload/switch)
+- Caching for inference results
+
+**Dependencies:**
+- FastAPI 0.115.12
+- PyTorch 2.6.0 (installed but unused)
+- Pydantic 2.10.0
+- Uvicorn (ASGI server)
+
+---
+
+#### Database (packages/database) - 10% 🔴
+
+**✅ Implemented:**
+- Prisma ORM configured
+- PostgreSQL connection
+- **1 model:** User
+  - Fields: id, email, username, name, avatar, password (bcrypt), role (ADMIN/MOD/USER), locale (vi/en)
+  - Unique constraints on email, username
+  - Timestamps (createdAt, updatedAt)
+
+**🔲 Missing Models (Planned but not defined):**
+- **Hero** - Character data (stats, skills, roles)
+- **Equipment** - Weapons, armor, tiers
+- **Altar** - Altar types, levels, bonuses
+- **Relic** - Relic effects, synergies
+- **TeamBuild** - User-saved team compositions
+- **TeamHero** - Many-to-many relation (Team ↔ Hero)
+- **Synergy** - Synergy scores between heroes
+- **TierVote** - Tier list voting data
+- **ForumCategory** - Forum categories
+- **ForumThread** - Forum threads
+- **ForumReply** - Thread replies
+- **Asset** - Uploaded game assets
+
+**Schema Coverage:** ~5% (1 of ~15 planned models)
+
+---
+
+#### Shared Packages - 95% ✅
+
+**@kgcentral/config** - ✅ Complete
+- appConfig exports (name, version, apiPrefix, locales, CORS)
+- Locale type definition
+
+**@kgcentral/database** - 🔴 10% (User model only)
+- Prisma client singleton
+- User model với Role enum
+- Missing: All game-related models
+
+**@kgcentral/i18n** - ✅ Complete
+- Vietnamese (default) và English
+- 3 namespaces: common, breadcrumbs, metadata
+- Translation files fully populated
+
+**@kgcentral/types** - ✅ Complete
+- Locale, Role, User types
+- ApiResponse<T> generic
+- PaginatedResponse<T>
+- AuthTokens interface
+
+**@kgcentral/ui** - ✅ Complete
+- 7 components: Button, Card, Input, Breadcrumb, Dropdown Menu, Navigation Menu, ColorPalette
+- Royal Castle theme (OkLch color space)
+- Tailwind CSS v4 setup
+- Radix UI integration
+- Icon libraries (lucide-react, @hugeicons)
+
+---
+
+#### DevOps - 95% ✅
+
+**✅ Complete:**
+- Docker multi-stage builds
+- docker-compose.yml (frontend, backend, ai-service, db, pgadmin)
+- Kubernetes manifests (base + overlays: dev/prod)
+- Kustomize configuration
+- Health checks in containers
+- .dockerignore optimization
+- K3s deployment scripts
+
+**⚠️ Security Issues:**
+- Hardcoded JWT_SECRET in docker-compose (CRITICAL)
+- Default postgres password (CRITICAL)
+- K8s secrets in plaintext (CRITICAL)
+
+**🔲 Missing:**
+- CI/CD pipeline (.github/workflows)
+- Monitoring/logging stack (Prometheus, Grafana)
+- Backup strategies
+
+---
+
+### 14.3. Core Features Implementation Status
+
+| Feature | Planned | Implemented | Status |
+|---------|---------|-------------|--------|
+| **Wiki - Heroes Database** | Yes | No | 🔴 0% |
+| **Wiki - Equipment Database** | Yes | No | 🔴 0% |
+| **Wiki - Altars Database** | Yes | No | 🔴 0% |
+| **Wiki - Relics Database** | Yes | No | 🔴 0% |
+| **Wiki - Search (FTS)** | Yes | No | 🔴 0% |
+| **Team Builder UI** | Yes | No | 🔴 0% |
+| **Team Builder - Save/Load** | Yes | No | 🔴 0% |
+| **Team Builder - Share** | Yes | No | 🔴 0% |
+| **AI Recommendations** | Yes | No | 🔴 0% (mock only) |
+| **Synergy Scoring Algorithm** | Yes | No | 🔴 0% |
+| **Tier List Voting** | Yes | No | 🔴 0% |
+| **Wilson Score Ranking** | Yes | No | 🔴 0% |
+| **Forum** | Optional | No | 🔴 0% |
+| **Assets Library** | Optional | No | 🔴 0% |
+| **Authentication** | Yes | Partial | 🟡 60% (no guards) |
+| **User Management** | Yes | Partial | 🟡 40% (basic CRUD) |
+| **i18n (vi/en)** | Yes | Yes | ✅ 100% |
+| **Theme Switching** | Yes | Yes | ✅ 100% |
+| **Responsive Design** | Yes | Yes | ✅ 100% |
+
+---
+
+### 14.4. Next Steps (Priority Order)
+
+**Phase 1: Security & Foundation (CRITICAL)**
+1. Implement JWT authentication guards
+2. Add service layer to backend
+3. Fix hardcoded secrets in configs
+4. Add rate limiting
+5. Strengthen password validation
+
+**Phase 2: Core Database Models**
+1. Define Hero model + seed data
+2. Define Equipment model + seed data
+3. Define Altar & Relic models + seed data
+4. Define TeamBuild model + relations
+
+**Phase 3: Wiki Module**
+1. Backend: CRUD endpoints for Heroes, Equipment, Altars, Relics
+2. Frontend: Wiki pages with listing, detail, filtering
+3. Search functionality (PostgreSQL FTS)
+4. Tier list voting UI + backend
+
+**Phase 4: Team Builder**
+1. Frontend: Drag-and-drop UI
+2. Backend: Team CRUD endpoints
+3. Share functionality (generate unique codes)
+4. Community gallery
+
+**Phase 5: AI Recommendations**
+1. Implement Synergy Scoring algorithm
+2. Integrate PyTorch (or use rule-based initially)
+3. Recommendation Service backend
+4. Frontend integration
+
+**Phase 6: Polish & Testing**
+1. Write tests (Jest for backend, Vitest for frontend)
+2. Add logging & monitoring
+3. Performance optimization
+4. Documentation completion
+
+---
+
+### 14.5. Known Issues
+
+**🔴 Critical:**
+- No authentication guards on backend endpoints (users can be enumerated publicly)
+- AI Service returns only mock data (PyTorch not integrated)
+- Hardcoded secrets in docker-compose and K8s configs
+
+**🟠 High:**
+- Weak password requirements (min 6 chars)
+- No service layer (all logic in controllers)
+- No error handling or logging
+- No rate limiting (vulnerable to attacks)
+
+**🟡 Medium:**
+- No pagination on list endpoints
+- No input sanitization beyond basic Zod validation
+- Missing database models for core features
+
+**🟢 Low:**
+- No pre-commit hooks (husky)
+- No CI/CD pipeline
+- No backup strategies
+
+---
+
+## 15. Tài Liệu Tham Khảo
 
 1. King God Castle - Google Play Store. https://play.google.com/store/apps/details?id=com.awesomepiece.castle
 2. King God Castle Wiki - Fandom. https://king-god-castle.fandom.com

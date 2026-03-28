@@ -4,18 +4,28 @@
 
 ## Tính Năng Chính
 
+### ✅ Đã Hoàn Thành
+
+- **Landing Page** - Trang chủ với hero section, feature showcase
+- **Navigation** - Menu điều hướng với dropdown structure
+- **Đa ngôn ngữ** - Hỗ trợ Tiếng Việt và English (i18next)
+- **Theme Switching** - Light/Dark/System modes
+- **Authentication API** - Login/Register endpoints với JWT
+- **User Management API** - Danh sách và chi tiết người dùng
+
+### 🔲 Đang Phát Triển (Planned)
+
 - **Wiki** - Tra cứu thông tin tướng, trang bị, altar, relic
 - **Team Builder** - Xây dựng đội hình với drag-and-drop
 - **AI Recommendations** - Đề xuất đội hình tự động dựa trên Synergy Scoring
 - **Tier List** - Xếp hạng tướng với Wilson Score voting
-- **Đa ngôn ngữ** - Hỗ trợ Tiếng Việt và English
 
 ## Kiến Trúc
 
 ```
 KGCentral/
 ├── apps/
-│   ├── frontend/        # Next.js 15 - Giao diện web (:3000)
+│   ├── frontend/        # Next.js 16 - Giao diện web (:3000)
 │   ├── backend/         # NestJS 11 - REST API (:4000)
 │   └── ai-service/      # FastAPI + PyTorch - AI inference (:5000)
 ├── packages/
@@ -24,6 +34,8 @@ KGCentral/
 │   ├── i18n/            # Đa ngôn ngữ (vi/en)
 │   ├── types/           # TypeScript types dùng chung
 │   └── ui/              # Design system (shadcn/ui + Tailwind v4)
+├── docs/                # 📚 Tài liệu dữ liệu game (cho AI training)
+│   └── game-data/       # Heroes, Equipment, Altars, Relics, Synergies
 └── devops/
     ├── docker/          # Dockerfiles
     └── k8s/             # Kubernetes manifests (Kustomize)
@@ -34,7 +46,7 @@ KGCentral/
 | Layer | Công nghệ |
 |-------|-----------|
 | Monorepo | pnpm workspaces + Turborepo |
-| Frontend | Next.js 15, React 19, Tailwind CSS v4, shadcn/ui |
+| Frontend | Next.js 16, React 19, Tailwind CSS v4, shadcn/ui |
 | Backend | NestJS 11, Zod, JWT, bcrypt |
 | AI Service | FastAPI, PyTorch, Pydantic |
 | Database | PostgreSQL 17, Prisma ORM |
@@ -118,40 +130,66 @@ pnpm docker:down
 
 ### Backend (`/api/v1/`)
 
+> ⚠️ **Security Note:** Authentication endpoints are functional but **authorization guards are not yet implemented**. All endpoints are currently unprotected.
+
 #### Auth
 
-| Method | Endpoint | Body | Mô tả |
-|--------|----------|------|-------|
-| `POST` | `/auth/login` | `{ email, password }` | Đăng nhập |
-| `POST` | `/auth/register` | `{ email, password, username, name? }` | Đăng ký |
+| Method | Endpoint | Body | Mô tả | Status |
+|--------|----------|------|-------|--------|
+| `POST` | `/auth/login` | `{ email, password }` | Đăng nhập, trả về JWT token | ✅ Working |
+| `POST` | `/auth/register` | `{ email, password, username, name? }` | Đăng ký tài khoản | ✅ Working |
+
+**Response example:**
+```json
+// Login response
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "user": {
+    "id": "clxxx...",
+    "email": "user@example.com",
+    "username": "username",
+    "name": "Display Name",
+    "role": "USER",
+    "locale": "vi"
+  }
+}
+```
 
 #### Users
 
-| Method | Endpoint | Mô tả |
-|--------|----------|-------|
-| `GET` | `/users` | Danh sách người dùng |
-| `GET` | `/users/:id` | Chi tiết người dùng |
+| Method | Endpoint | Mô tả | Status |
+|--------|----------|-------|--------|
+| `GET` | `/users` | Danh sách người dùng (không có phân trang) | ✅ Working |
+| `GET` | `/users/:id` | Chi tiết người dùng theo CUID | ✅ Working |
+
+> 🔴 **TODO:** Implement JWT guards, pagination, filtering
 
 #### Health
 
-| Method | Endpoint | Mô tả |
-|--------|----------|-------|
-| `GET` | `/` | Thông tin API |
-| `GET` | `/health` | Health check |
+| Method | Endpoint | Mô tả | Status |
+|--------|----------|-------|--------|
+| `GET` | `/` | Thông tin API version | ✅ Working |
+| `GET` | `/health` | Health check với timestamp | ✅ Working |
 
 ### AI Service
 
-| Method | Endpoint | Mô tả |
-|--------|----------|-------|
-| `GET` | `/health` | Health check |
-| `POST` | `/api/v1/inference/` | Chạy AI inference |
-| `GET` | `/api/v1/models/` | Danh sách models |
-| `POST` | `/api/v1/models/load` | Load model |
-| `POST` | `/api/v1/models/unload` | Unload model |
+> ⚠️ **Development Note:** AI Service endpoints are **scaffolding only**. PyTorch is not yet integrated; all endpoints return mock data.
+
+| Method | Endpoint | Mô tả | Status |
+|--------|----------|-------|--------|
+| `GET` | `/health` | Health check | ✅ Working |
+| `POST` | `/api/v1/inference/` | AI inference (returns mock) | 🔲 Mock Only |
+| `GET` | `/api/v1/models/` | Danh sách models (hardcoded) | 🔲 Mock Only |
+| `POST` | `/api/v1/models/load` | Load model (stub) | 🔲 Stub Only |
+| `POST` | `/api/v1/models/unload` | Unload model (stub) | 🔲 Stub Only |
+
+> 🔴 **TODO:** Implement PyTorch model loading, inference logic, synergy scoring algorithm
 
 ## Database Schema
 
-### User
+> 📊 **Current State:** Database chỉ có **1 model** (User). Các models khác (Hero, Equipment, Altar, Relic, Team, etc.) chưa được định nghĩa.
+
+### User (✅ Implemented)
 
 | Field | Type | Mô tả |
 |-------|------|-------|
@@ -160,9 +198,23 @@ pnpm docker:down
 | `username` | String (unique) | Tên đăng nhập |
 | `name` | String? | Tên hiển thị |
 | `avatar` | String? | URL avatar |
-| `password` | String | Mật khẩu (bcrypt) |
-| `role` | Enum | ADMIN / MOD / USER |
-| `locale` | String | vi / en |
+| `password` | String | Mật khẩu (bcrypt hashed) |
+| `role` | Enum | ADMIN / MOD / USER (default: USER) |
+| `locale` | String | vi / en (default: "vi") |
+| `createdAt` | DateTime | Thời gian tạo |
+| `updatedAt` | DateTime | Thời gian cập nhật |
+
+**Table name:** `users`
+
+### 🔲 Planned Models (Chưa Implement)
+
+- **Hero** - Thông tin tướng (stats, skills, roles)
+- **Equipment** - Trang bị (weapons, armor, tiers)
+- **Altar** - Bàn thờ (types, levels, bonuses)
+- **Relic** - Thánh vật (effects, synergies)
+- **Team** - Đội hình người dùng lưu
+- **TeamVote** - Voting cho tier list
+- **Synergy** - Synergy scores giữa các tướng
 
 ## Deploy
 
@@ -193,11 +245,20 @@ Locale mặc định có thể thay đổi qua config hoặc theo preference ng�
 
 ## Tài Liệu
 
+### Dữ Liệu Game (Game Data)
+
+- [docs/](./docs/) - 📚 **Tài liệu dữ liệu game** (Heroes, Equipment, Altars, Relics, Synergies)
+  - Dùng để train AI và cung cấp nội dung cho Wiki
+  - Format: Markdown, JSON, YAML, CSV
+  - Xem [docs/README.md](./docs/README.md) để biết chi tiết cấu trúc
+
 ### Đề cương & Đánh giá
 
 - [PROPOSAL.md](./PROPOSAL.md) - Đề cương đồ án chi tiết
-- [SECURITY_AUDIT.md](./SECURITY_AUDIT.md) - 🔐 Báo cáo đánh giá bảo mật (19 lỗ hổng phát hiện)
+- [SECURITY_AUDIT.md](./SECURITY_AUDIT.md) - 🔐 Báo cáo đánh giá bảo mật (20 lỗ hổng phát hiện)
 - [CODE_QUALITY_REVIEW.md](./CODE_QUALITY_REVIEW.md) - 📊 Đánh giá chất lượng code từ giảng viên
+- [EVALUATION_SUMMARY.md](./EVALUATION_SUMMARY.md) - 🎓 Tổng kết đánh giá (7.5/10)
+- [TODO.md](./TODO.md) - 📋 Danh sách khắc phục (35 items)
 
 ### Component Documentation
 

@@ -1,0 +1,12 @@
+{
+  "id": "relic_corruption_001",
+  "name": "Dark Corruption Stone",
+  "nameVi": "Đá Xâm Thực Đen",
+  "type": "corruption",
+  "rarity": "epic",
+  "maxLevel": 4,
+  "effects": {
+    "description": "Increases damage to corrupted enemies",
+    "descriptionVi": "Tăng sát thương với kẻ địch bị xâm thực"
+  }
+}

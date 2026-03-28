@@ -1,0 +1,17 @@
+README.md
+pyproject.toml
+src/config.py
+src/game_data.py
+src/i18n.py
+src/main.py
+src/synergy.py
+src/kgcentral_ai_service.egg-info/PKG-INFO
+src/kgcentral_ai_service.egg-info/SOURCES.txt
+src/kgcentral_ai_service.egg-info/dependency_links.txt
+src/kgcentral_ai_service.egg-info/requires.txt
+src/kgcentral_ai_service.egg-info/top_level.txt
+src/routes/__init__.py
+src/routes/game.py
+src/routes/health.py
+src/routes/inference.py
+src/routes/models.py

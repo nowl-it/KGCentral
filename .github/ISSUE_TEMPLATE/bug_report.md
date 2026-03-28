@@ -1,38 +1,38 @@
 ---
 name: Bug report
-about: Create a report to help us improve
-title: ''
-labels: ''
+about: Báo cáo lỗi để giúp chúng tôi cải thiện KGCentral
+title: '[BUG] '
+labels: 'bug'
 assignees: ''
 
 ---
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+**Mô tả lỗi**
+Mô tả rõ ràng và ngắn gọn về lỗi là gì.
 
-**To Reproduce**
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+**Tái hiện lỗi**
+Các bước để tái hiện lỗi:
+1. Đi tới '...'
+2. Click vào '....'
+3. Scroll xuống '....'
+4. Thấy lỗi
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+**Kết quả mong đợi**
+Mô tả rõ ràng về kết quả bạn mong đợi.
 
 **Screenshots**
-If applicable, add screenshots to help explain your problem.
+Nếu có, thêm screenshots để giải thích vấn đề.
 
-**Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
+**Môi trường:**
+ - Component: [e.g. Frontend, Backend, AI Service]
+ - OS: [e.g. Ubuntu 24.04, macOS 14, Windows 11]
+ - Browser (nếu là Frontend): [e.g. Chrome 120, Firefox 121, Safari 17]
+ - Version: [e.g. 1.0.0]
 
-**Smartphone (please complete the following information):**
- - Device: [e.g. iPhone6]
- - OS: [e.g. iOS8.1]
- - Browser [e.g. stock browser, safari]
- - Version [e.g. 22]
+**Logs (nếu có)**
+```
+Paste error logs here
+```
 
-**Additional context**
-Add any other context about the problem here.
+**Thông tin bổ sung**
+Thêm bất kỳ thông tin nào khác về vấn đề tại đây.

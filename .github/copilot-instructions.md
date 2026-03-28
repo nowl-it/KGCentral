@@ -92,7 +92,7 @@ This is a **pnpm workspaces + Turborepo** monorepo with three main apps and five
 
 ```
 apps/
-├── frontend/      - Next.js 15, React 19 (:3000)
+├── frontend/      - Next.js 16, React 19 (:3000)
 ├── backend/       - NestJS 11 REST API (:4000)
 └── ai-service/    - FastAPI + PyTorch AI inference (:5000)
 
@@ -168,6 +168,11 @@ apps/backend/src/
 **Dependencies**: Inject services via constructor DI
 **Global prefix**: Set in `main.ts` as `/api/v{major}`
 
+> **⚠️ Security Warning:**
+> - No JWT authentication guards implemented - all endpoints are UNPROTECTED
+> - No service layer - all logic in controllers (anti-pattern)
+> - Only User model in database (Hero, Equipment, Altar, Relic models not yet defined)
+
 ### FastAPI AI Service Structure
 
 ```
@@ -185,6 +190,11 @@ apps/ai-service/src/
 **Lifespan**: i18n initialization happens in lifespan context manager
 **Settings**: Use Pydantic Settings for environment variables
 
+> **⚠️ AI Service Status:**
+> - PyTorch is NOT integrated (installed but unused)
+> - All endpoints return MOCK/HARDCODED data
+> - Synergy scoring algorithm not implemented (0%)
+
 ### Next.js Frontend Structure
 
 ```
@@ -196,9 +206,13 @@ apps/frontend/src/
 └── lib/                 - Utilities
 ```
 
-**Routing**: Uses Next.js 15 App Router (file-based)
+**Routing**: Uses Next.js 16 App Router (file-based)
 **Styling**: Tailwind CSS v4 with `@kgcentral/ui` components
 **i18n**: react-i18next for client-side translations
+
+> **⚠️ Implementation Status:**
+> - ✅ Landing page, navigation, i18n, theme switching (30% complete)
+> - 🔲 Wiki pages, Team Builder, AI Recommendations not yet built (0%)
 
 ### Prisma Schema Conventions
 
@@ -206,6 +220,8 @@ apps/frontend/src/
 - **Timestamps**: Include `createdAt` and `updatedAt` on models
 - **Naming**: Use `@@map` to specify snake_case table names
 - **Enums**: Define TypeScript-style enums in schema
+
+> **⚠️ Database Status:** Only **User** model implemented (~5% complete). Hero, Equipment, Altar, Relic, TeamBuild, Synergy models not yet defined.
 
 ### Environment Variables
 
@@ -236,10 +252,33 @@ pnpm k3s:undeploy     # Remove from dev environment
 - **pnpm**: >= 9.0.0  
 - **Python**: >= 3.12
 - **PostgreSQL**: 17
-- **Next.js**: 15
-- **React**: 19
-- **NestJS**: 11
-- **Tailwind CSS**: 4.2
+- **Next.js**: 16 (16.2.1)
+- **React**: 19 (19.2.4)
+- **NestJS**: 11 (11.0.8)
+- **Tailwind CSS**: 4.2 (4.2.2)
+- **FastAPI**: 0.115.12
+- **PyTorch**: 2.6.0 (not yet integrated)
+
+## Implementation Status Summary
+
+### ✅ Completed
+- Frontend infrastructure (landing page, navigation, i18n, theme)
+- Backend basic auth (login/register with JWT)
+- All 5 shared packages (config, database, i18n, types, ui)
+- DevOps configs (Docker, K8s)
+
+### 🔴 Critical Issues
+- No JWT authentication guards (endpoints unprotected)
+- PyTorch not integrated in AI service (mock data only)
+- Hardcoded secrets in Docker/K8s configs
+- Only User model in database (5% of schema)
+
+### 🔲 Not Yet Implemented
+- Wiki pages (Heroes, Equipment, Altars, Relics) - 0%
+- Team Builder UI and backend - 0%
+- AI recommendation algorithm - 0%
+- Tier List voting - 0%
+- Forum/Community features - 0%
 
 ## Important Notes
 

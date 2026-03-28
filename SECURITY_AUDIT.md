@@ -8,22 +8,105 @@
 
 ## 📊 Tóm Tắt Điều Hành
 
-Đã phát hiện **19 lỗ hổng bảo mật** với mức độ nghiêm trọng từ CRITICAL đến LOW:
+Đã phát hiện **20 lỗ hổng bảo mật** với mức độ nghiêm trọng từ CRITICAL đến LOW:
 
 | Mức độ | Số lượng | % |
 |--------|----------|---|
-| 🔴 CRITICAL | 4 | 21% |
-| 🟠 HIGH | 6 | 32% |
-| 🟡 MEDIUM | 5 | 26% |
-| 🟢 LOW | 4 | 21% |
+| 🔴 CRITICAL | 5 | 25% |
+| 🟠 HIGH | 6 | 30% |
+| 🟡 MEDIUM | 5 | 25% |
+| 🟢 LOW | 4 | 20% |
 
 **Ưu tiên khắc phục:** Phải fix tất cả CRITICAL trước khi deploy production.
 
+> 🆕 **Update 28/03/2026:** Phát hiện thêm 1 lỗ hổng CRITICAL - No JWT authentication guards on endpoints.
+
 ---
 
-## 🔴 CRITICAL - Nghiêm Trọng (4 lỗ hổng)
+## 🔴 CRITICAL - Nghiêm Trọng (5 lỗ hổng)
 
-### 1. JWT Secret yếu trong docker-compose.yml
+### 1. Không có JWT Authentication Guards trên Protected Endpoints
+
+**Files:** `apps/backend/src/app/users/users.controller.ts`, `apps/backend/src/app/auth/auth.controller.ts`  
+**CWE:** CWE-306 (Missing Authentication for Critical Function)  
+**Discovered:** 28/03/2026
+
+```typescript
+// ❌ HIỆN TẠI - Không có @UseGuards
+@Controller('users')
+export class UsersController {
+    @Get()  // Bất kỳ ai cũng gọi được!
+    async list(): Promise<UsersListResponse> {
+        const users = await prisma.user.findMany({
+            select: { id, email, username, name, avatar, role, locale }
+        });
+        return { users };
+    }
+    
+    @Get(':id')  // Không cần login!
+    async getById(@Param('id') id: string) {
+        return await prisma.user.findUnique({ where: { id } });
+    }
+}
+```
+
+**Tác động:**
+- 🔴 **User enumeration** - Attacker có thể liệt kê tất cả users
+- 🔴 **IDOR vulnerability** - Truy cập thông tin bất kỳ user nào
+- 🔴 **Data exposure** - Email, username, role của tất cả users bị lộ
+- 🔴 **Privacy violation** - Không cần authentication để xem danh sách
+
+**Khắc phục:**
+```typescript
+// ✅ SỬA - Implement JWT Guard
+
+// 1. Tạo JWT Guard: src/guards/jwt-auth.guard.ts
+import { Injectable, ExecutionContext, UnauthorizedException } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+import * as jwt from 'jsonwebtoken';
+
+@Injectable()
+export class JwtAuthGuard extends AuthGuard('jwt') {
+    canActivate(context: ExecutionContext) {
+        const request = context.switchToHttp().getRequest();
+        const token = request.headers.authorization?.replace('Bearer ', '');
+        
+        if (!token) {
+            throw new UnauthorizedException('Missing authentication token');
+        }
+        
+        try {
+            const payload = jwt.verify(token, process.env.JWT_SECRET || 'fallback');
+            request.user = payload;
+            return true;
+        } catch (error) {
+            throw new UnauthorizedException('Invalid or expired token');
+        }
+    }
+}
+
+// 2. Apply guard to controller
+import { UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from '../../guards/jwt-auth.guard';
+
+@Controller('users')
+@UseGuards(JwtAuthGuard)  // Bảo vệ toàn bộ controller
+export class UsersController {
+    @Get()
+    async list(@Request() req): Promise<UsersListResponse> {
+        // Chỉ authenticated users mới gọi được
+        console.log('Authenticated user:', req.user.id);
+        const users = await prisma.user.findMany({...});
+        return { users };
+    }
+}
+```
+
+**Priority:** 🔴 **CRITICAL** - Phải fix trước khi deploy
+
+---
+
+### 2. JWT Secret yếu trong docker-compose.yml
 
 **File:** `docker-compose.yml` (line 28)  
 **CWE:** CWE-798 (Use of Hard-coded Credentials)
@@ -51,7 +134,7 @@ JWT_SECRET_PROD=<sử dụng openssl rand -base64 64>
 
 ---
 
-### 2. Default Database Credentials
+### 3. Default Database Credentials
 
 **File:** `docker-compose.yml` (lines 52-54)  
 **CWE:** CWE-259 (Use of Hard-coded Password)
@@ -79,7 +162,7 @@ db:
 
 ---
 
-### 3. Kubernetes Secrets ở dạng Plain Text
+### 4. Kubernetes Secrets ở dạng Plain Text
 
 **File:** `devops/k8s/base/secrets.yaml`  
 **CWE:** CWE-311 (Missing Encryption of Sensitive Data)
@@ -110,75 +193,60 @@ kubeseal --format yaml < secrets.yaml > sealed-secrets.yaml
 
 ---
 
-### 4. Thiếu Authentication trên Protected Endpoints
+### 5. Thiếu Authentication trên AI Service Endpoints
 
-**Files:** `apps/backend/src/app/users/users.controller.ts`, `auth.controller.ts`  
-**CWE:** CWE-306 (Missing Authentication for Critical Function)
+**Files:** `apps/ai-service/src/routes/inference.py`, `models.py`  
+**CWE:** CWE-306 (Missing Authentication for Critical Function)  
+**Discovered:** 28/03/2026
 
-```typescript
-// ❌ HIỆN TẠI - Không có @UseGuards
-@Controller('users')
-export class UsersController {
-    @Get()  // Ai cũng gọi được!
-    async list(): Promise<UsersListResponse> {
-        const users = await prisma.user.findMany(...);
-    }
-}
+```python
+# ❌ HIỆN TẠI - Không có authentication
+@router.post("/", response_model=InferenceResponse)
+async def predict(request: InferenceRequest):
+    # Bất kỳ ai cũng gọi được inference endpoint!
+    return InferenceResponse(
+        success=True,
+        model_name=request.model_name,
+        output={"prediction": "mock_result", "confidence": 0.95}
+    )
 ```
 
 **Tác động:**
-- IDOR (Insecure Direct Object Reference)
-- User enumeration
-- Lộ danh sách người dùng công khai
+- API abuse - Unlimited inference calls
+- Resource exhaustion
+- Cost implications (nếu sử dụng paid AI services)
 
 **Khắc phục:**
-```typescript
-// ✅ SỬA - Thêm JWT Guard
-import { UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from '../guards/jwt-auth.guard';
+```python
+# ✅ SỬA - Thêm API key hoặc JWT verification
+from fastapi import Header, HTTPException
+import jwt
 
-@Controller('users')
-@UseGuards(JwtAuthGuard)  // Bảo vệ toàn bộ controller
-export class UsersController {
-    @Get()
-    async list(@Request() req): Promise<UsersListResponse> {
-        // Chỉ user đã login mới gọi được
-        console.log('Authenticated user:', req.user.id);
-        // ...
-    }
-}
+async def verify_token(authorization: str = Header(None)):
+    if not authorization:
+        raise HTTPException(status_code=401, detail="Missing authorization header")
+    
+    token = authorization.replace("Bearer ", "")
+    try:
+        payload = jwt.decode(token, JWT_SECRET, algorithms=["HS256"])
+        return payload
+    except jwt.InvalidTokenError:
+        raise HTTPException(status_code=401, detail="Invalid token")
 
-// Tạo file: src/guards/jwt-auth.guard.ts
-import { Injectable, ExecutionContext, UnauthorizedException } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
-import * as jwt from 'jsonwebtoken';
-
-@Injectable()
-export class JwtAuthGuard extends AuthGuard('jwt') {
-    canActivate(context: ExecutionContext) {
-        const request = context.switchToHttp().getRequest();
-        const token = request.headers.authorization?.replace('Bearer ', '');
-        
-        if (!token) {
-            throw new UnauthorizedException('Missing token');
-        }
-        
-        try {
-            const payload = jwt.verify(token, process.env.JWT_SECRET);
-            request.user = payload;
-            return true;
-        } catch (error) {
-            throw new UnauthorizedException('Invalid token');
-        }
-    }
-}
+@router.post("/")
+async def predict(
+    request: InferenceRequest,
+    user = Depends(verify_token)  # Require authentication
+):
+    # Chỉ authenticated users mới gọi được
+    ...
 ```
 
 ---
 
 ## 🟠 HIGH - Cao (6 lỗ hổng)
 
-### 5. Yêu cầu Password quá yếu
+### 6. Yêu cầu Password quá yếu
 
 **File:** `apps/backend/src/app/auth/auth.controller.ts` (line 12)  
 **CWE:** CWE-521 (Weak Password Requirements)
@@ -201,7 +269,7 @@ const passwordSchema = z.string()
 
 ---
 
-### 6. Thiếu Rate Limiting
+### 7. Thiếu Rate Limiting
 
 **File:** `apps/backend/src/main.ts`  
 **CWE:** CWE-770 (Allocation of Resources Without Limits)
@@ -240,7 +308,7 @@ async login(@Body() body: LoginDto) { ... }
 
 ---
 
-### 7. Thiếu Input Sanitization cho User Input
+### 8. Thiếu Input Sanitization cho User Input
 
 **File:** `apps/backend/src/app/users/users.controller.ts`  
 **CWE:** CWE-20 (Improper Input Validation)

@@ -1,0 +1,214 @@
+{
+  "id": "hero_example_001",
+  "name": "Example Hero",
+  "nameVi": "Anh Hùng Mẫu",
+  "class": "Warrior",
+  "classVi": "Chiến Binh",
+  "faction": "Light",
+  "factionVi": "Ánh Sáng",
+  "rarity": "Legendary",
+  "rarityVi": "Huyền Thoại",
+  "description": "A powerful warrior blessed by the gods",
+  "descriptionVi": "Một chiến binh hùng mạnh được các vị thần ban phước",
+  "baseStats": {
+    "level": 1,
+    "hp": 5000,
+    "atk": 800,
+    "def": 600,
+    "spd": 120,
+    "crit": 15,
+    "critDmg": 150
+  },
+  "maxStats": {
+    "level": 100,
+    "hp": 50000,
+    "atk": 8000,
+    "def": 6000,
+    "spd": 120,
+    "crit": 15,
+    "critDmg": 150
+  },
+  "skills": [
+    {
+      "id": "skill_001",
+      "name": "Holy Strike",
+      "nameVi": "Đòn Thánh Thiện",
+      "type": "active",
+      "cooldown": 3,
+      "target": "single",
+      "description": "Deals 250% ATK damage to a single target. If target is Dark faction, deals 300% damage instead.",
+      "descriptionVi": "Gây 250% ATK sát thương lên 1 mục tiêu. Nếu mục tiêu là phe Bóng Tối, gây 300% sát thương.",
+      "scalingType": "ATK",
+      "multiplier": 2.5,
+      "effects": [
+        {
+          "condition": "target.faction === 'Dark'",
+          "multiplier": 3.0
+        }
+      ]
+    },
+    {
+      "id": "skill_002",
+      "name": "Divine Shield",
+      "nameVi": "Lá Chắn Thần Thánh",
+      "type": "passive",
+      "description": "Reduces all incoming damage by 20%. When HP falls below 30%, increase damage reduction to 40% for 3 turns.",
+      "descriptionVi": "Giảm 20% sát thương nhận vào. Khi HP dưới 30%, tăng giảm sát thương lên 40% trong 3 lượt.",
+      "effects": [
+        {
+          "type": "damageReduction",
+          "value": 0.2
+        },
+        {
+          "condition": "self.hp < 0.3",
+          "type": "damageReduction",
+          "value": 0.4,
+          "duration": 3
+        }
+      ]
+    },
+    {
+      "id": "skill_003",
+      "name": "Heroic Presence",
+      "nameVi": "Khí Thế Anh Hùng",
+      "type": "ultimate",
+      "cooldown": 5,
+      "target": "all_allies",
+      "description": "Grants all allies +30% ATK and +20% DEF for 4 turns. Light faction allies also gain +15% Crit Rate.",
+      "descriptionVi": "Tăng +30% ATK và +20% DEF cho tất cả đồng minh trong 4 lượt. Đồng minh phe Ánh Sáng thêm +15% Crit Rate.",
+      "effects": [
+        {
+          "target": "all_allies",
+          "type": "buff",
+          "stats": {
+            "atk": 0.3,
+            "def": 0.2
+          },
+          "duration": 4
+        },
+        {
+          "target": "all_allies",
+          "condition": "ally.faction === 'Light'",
+          "type": "buff",
+          "stats": {
+            "crit": 15
+          },
+          "duration": 4
+        }
+      ]
+    }
+  ],
+  "tierRankings": {
+    "pve": {
+      "tier": "S",
+      "rank": 3,
+      "notes": "Excellent tank with team support capabilities",
+      "notesVi": "Tank xuất sắc với khả năng hỗ trợ đội"
+    },
+    "pvp": {
+      "tier": "A",
+      "rank": 12,
+      "notes": "Good sustain but lacks burst damage for PvP",
+      "notesVi": "Hồi phục tốt nhưng thiếu sát thương bùng nổ cho PvP"
+    },
+    "boss": {
+      "tier": "S+",
+      "rank": 1,
+      "notes": "Top-tier for boss raids due to damage reduction and team buffs",
+      "notesVi": "Hàng đầu cho boss raid nhờ giảm sát thương và buff đội"
+    },
+    "guildWar": {
+      "tier": "A+",
+      "rank": 8,
+      "notes": "Strong in guild wars when paired with Light faction allies",
+      "notesVi": "Mạnh trong guild war khi kết hợp với đồng minh phe Ánh Sáng"
+    }
+  },
+  "synergies": {
+    "bestWith": [
+      {
+        "heroId": "hero_005",
+        "heroName": "Lancelot",
+        "reason": "Lancelot's damage scales with ATK buffs from Heroic Presence",
+        "reasonVi": "Sát thương của Lancelot tăng mạnh với buff ATK từ Khí Thế Anh Hùng"
+      },
+      {
+        "heroId": "hero_012",
+        "heroName": "Guinevere",
+        "reason": "Guinevere provides healing, covering Example Hero's only weakness",
+        "reasonVi": "Guinevere cung cấp hồi máu, bù đắp điểm yếu duy nhất của Anh Hùng Mẫu"
+      }
+    ],
+    "counters": [
+      {
+        "heroId": "hero_023",
+        "heroName": "Shadow Assassin",
+        "reason": "Holy Strike deals bonus damage to Dark faction heroes",
+        "reasonVi": "Đòn Thánh Thiện gây sát thương cộng thêm lên anh hùng phe Bóng Tối"
+      }
+    ],
+    "counteredBy": [
+      {
+        "heroId": "hero_008",
+        "heroName": "Dispeller Mage",
+        "reason": "Can remove buffs from Heroic Presence, reducing team effectiveness",
+        "reasonVi": "Có thể xóa buff từ Khí Thế Anh Hùng, giảm hiệu quả đội hình"
+      }
+    ]
+  },
+  "recommendedBuild": {
+    "equipment": [
+      {
+        "id": "equip_001",
+        "name": "Excalibur",
+        "priority": 1,
+        "reason": "Maximizes ATK for stronger buffs and damage"
+      },
+      {
+        "id": "equip_003",
+        "name": "Heavy Plate Armor",
+        "priority": 2,
+        "reason": "Stacks with Divine Shield for exceptional tankiness"
+      }
+    ],
+    "altars": [
+      {
+        "id": "altar_atk_tier5",
+        "name": "ATK Altar Tier 5",
+        "priority": 1
+      },
+      {
+        "id": "altar_hp_tier4",
+        "name": "HP Altar Tier 4",
+        "priority": 2
+      }
+    ],
+    "relics": [
+      {
+        "id": "relic_001",
+        "name": "Warrior's Pride",
+        "priority": 1
+      }
+    ]
+  },
+  "acquisition": {
+    "methods": [
+      "Hero Summon (Rate: 0.5%)",
+      "Event Shop (5000 Event Tokens)",
+      "Guild Shop (Legendary Shard x100)"
+    ],
+    "methodsVi": [
+      "Triệu Hồi Anh Hùng (Tỷ lệ: 0.5%)",
+      "Cửa Hàng Sự Kiện (5000 Event Token)",
+      "Cửa Hàng Guild (100 Mảnh Huyền Thoại)"
+    ]
+  },
+  "notes": "Example Hero is a versatile tank that excels in PvE and Boss content. His Heroic Presence skill makes him invaluable for Light faction teams. However, beware of dispellers in PvP environments.",
+  "notesVi": "Anh Hùng Mẫu là tank đa năng xuất sắc trong PvE và Boss. Skill Khí Thế Anh Hùng khiến anh ta vô giá cho đội hình phe Ánh Sáng. Tuy nhiên, cẩn thận với heroes xóa buff trong PvP.",
+  "metadata": {
+    "createdAt": "2026-03-28",
+    "updatedAt": "2026-03-28",
+    "gameVersion": "1.0.0",
+    "author": "KGCentral Team"
+  }
+}

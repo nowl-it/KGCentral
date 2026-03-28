@@ -1,0 +1,12 @@
+{
+  "id": "relic_arena_001",
+  "name": "Champion's Trophy",
+  "nameVi": "Cúp Vô Địch",
+  "type": "arena",
+  "rarity": "legendary",
+  "maxLevel": 4,
+  "effects": {
+    "description": "Bonus stats in arena battles",
+    "descriptionVi": "Tăng chỉ số trong đấu trường"
+  }
+}

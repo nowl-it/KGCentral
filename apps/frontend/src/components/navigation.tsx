@@ -10,7 +10,17 @@ import {
 	NavigationMenuTrigger,
 	navigationMenuTriggerStyle,
 } from '@kgcentral/ui/components/navigation-menu';
-import { BookOpen, Castle, Lightbulb, Sparkles, Swords, Trophy, Users, Wand2 } from 'lucide-react';
+import {
+	BookOpen,
+	Bot,
+	Castle,
+	Lightbulb,
+	Sparkles,
+	Swords,
+	Trophy,
+	Users,
+	Wand2,
+} from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import LanguageSwitcher from './language-switcher';
@@ -116,6 +126,19 @@ export default function NavigationComponent() {
 							<span className="ml-1 rounded bg-accent/20 px-1.5 py-0.5 text-[10px] font-medium text-accent">
 								NEW
 							</span>
+						</Link>
+					</NavigationMenuLink>
+				</NavigationMenuItem>
+
+				{/* AI Chat */}
+				<NavigationMenuItem>
+					<NavigationMenuLink
+						asChild
+						className={`${navigationMenuTriggerStyle()} gap-2 font-heading`}
+					>
+						<Link href="/chat">
+							<Bot className="size-4 text-success" />
+							<span>AI Chat</span>
 						</Link>
 					</NavigationMenuLink>
 				</NavigationMenuItem>

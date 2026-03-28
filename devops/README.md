@@ -1,6 +1,9 @@
 # DevOps
 
-Cau hinh deployment cho KGCentral, ho tro **Docker Compose** va **Kubernetes (K3s)**.
+Cấu hình deployment cho KGCentral, hỗ trợ **Docker Compose** và **Kubernetes (K3s)**.
+
+> **📊 Status:** ✅ Infrastructure Complete (Docker + K8s configs ready)
+> **⚠️ Security:** CRITICAL issues - hardcoded secrets in configs (see below)
 
 ## Cau Truc
 
@@ -54,13 +57,16 @@ docker-compose down -v
 
 ### Environment Variables
 
-| Service | Variable | Default | Mo ta |
-|---------|----------|---------|-------|
-| backend | `DATABASE_URL` | postgresql://... | PostgreSQL connection |
-| backend | `JWT_SECRET` | (required) | JWT signing secret |
-| backend | `CORS_ORIGINS` | http://localhost:3000 | Allowed origins |
-| ai-service | `DEVICE` | cpu | PyTorch device |
-| ai-service | `LOG_LEVEL` | info | Logging level |
+| Service | Variable | Default | Mô tả | Security |
+|---------|----------|---------|-------|----------|
+| backend | `DATABASE_URL` | postgresql://postgres:postgres@db:5432/kgcentral | PostgreSQL connection | 🔴 Hardcoded password |
+| backend | `JWT_SECRET` | change-this-secret-in-production | JWT signing secret | 🔴 Weak default |
+| backend | `CORS_ORIGINS` | http://localhost:3000 | Allowed origins | ✅ OK |
+| ai-service | `DEVICE` | cpu | PyTorch device | ✅ OK |
+| ai-service | `LOG_LEVEL` | info | Logging level | ✅ OK |
+| db | `POSTGRES_PASSWORD` | postgres | Database password | 🔴 Weak default |
+
+**🔴 CRITICAL:** Change `JWT_SECRET` and `POSTGRES_PASSWORD` before deploying!
 
 ## Kubernetes (K3s)
 
@@ -98,12 +104,57 @@ sudo k3s ctr images import <image.tar>
 
 ### Secrets
 
-Secrets duoc quan ly trong `k8s/base/secrets.yaml`:
+Secrets được quản lý trong `k8s/base/secrets.yaml`:
 
 - `jwt-secret`: JWT signing key
-- `db-credentials`: PostgreSQL username/password
+- `database-url`: PostgreSQL connection string
 
-**Luu y**: Thay doi secrets truoc khi deploy production!
+**🔴 CRITICAL SECURITY ISSUE:** Secrets are stored in PLAINTEXT in the repository!
+
+```yaml
+# ❌ HIỆN TẠI - devops/k8s/base/secrets.yaml
+kind: Secret
+stringData:
+  jwt-secret: "change-this-secret-in-production"  # ⚠️ PLAINTEXT!
+  database-url: "postgresql://postgres:postgres@postgres:5432/kgcentral"  # ⚠️ PLAINTEXT!
+```
+
+**✅ RECOMMENDED FIX:**
+
+Use **Sealed Secrets** hoặc **External Secrets Operator**:
+
+```bash
+# Install Sealed Secrets controller
+kubectl apply -f https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.24.0/controller.yaml
+
+# Encrypt secrets
+kubeseal --format yaml < secrets.yaml > sealed-secrets.yaml
+
+# Apply encrypted secrets
+kubectl apply -f sealed-secrets.yaml
+```
+
+Or use **external secret management** (AWS Secrets Manager, HashiCorp Vault, etc.)
+
+## Security Issues Summary
+
+### 🔴 CRITICAL (Must Fix Before Production)
+
+1. **Hardcoded JWT_SECRET** in `docker-compose.yml`
+   - Current: `change-this-secret-in-production`
+   - Fix: Use environment variable with strong random key (`openssl rand -base64 64`)
+
+2. **Weak Database Password** in `docker-compose.yml`
+   - Current: `postgres`
+   - Fix: Generate strong password (32+ characters)
+
+3. **Plaintext K8s Secrets** in `k8s/base/secrets.yaml`
+   - Current: Secrets visible in git repository
+   - Fix: Use Sealed Secrets or External Secrets Operator
+
+4. **No Authentication on AI Service**
+   - AI endpoints are publicly accessible
+   - Fix: Add JWT verification or API key authentication
 
 ## Network
 

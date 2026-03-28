@@ -1,0 +1,6 @@
+config
+game_data
+i18n
+main
+routes
+synergy

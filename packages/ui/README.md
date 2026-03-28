@@ -2,6 +2,9 @@
 
 Design system của KGCentral, xây dựng trên **shadcn/ui** và **Tailwind CSS v4**.
 
+> **📊 Components:** 7 components built (Button, Card, Input, Breadcrumb, Dropdown Menu, Navigation Menu, ColorPalette)
+> **🎨 Theme:** Royal Castle theme với OkLch color space
+
 ## Cài Đặt
 
 Package này được sử dụng như internal workspace dependency:
@@ -37,66 +40,128 @@ import { Input } from '@kgcentral/ui/components/input';
 import { cn } from '@kgcentral/ui/lib/utils';
 ```
 
-## Components
+## Components Implemented (7 total)
 
-### Button
+### 1. Button (63 lines)
 
-6 variants x 8 sizes:
+6 variants × 8 sizes = 48 combinations
 
 **Variants:** `default`, `outline`, `secondary`, `ghost`, `destructive`, `link`
 
-**Sizes:** `default`, `xs`, `sm`, `lg`, `icon`, `icon-xs`, `icon-sm`, `icon-lg`
+**Sizes:** `xs`, `sm`, `default`, `lg`, `icon`, `icon-xs`, `icon-sm`, `icon-lg`
 
 ```tsx
 <Button>Default</Button>
 <Button variant="outline">Outline</Button>
 <Button variant="destructive" size="sm">Delete</Button>
 <Button variant="ghost" size="icon"><Icon /></Button>
-<Button asChild><a href="/">Link</a></Button>
+<Button asChild><Link href="/">Link</Link></Button>
 ```
 
-### Card
+### 2. Card (91 lines)
 
-Gom 7 sub-components: `Card`, `CardHeader`, `CardTitle`, `CardDescription`, `CardAction`, `CardContent`, `CardFooter`.
+7 sub-components: `Card`, `CardHeader`, `CardTitle`, `CardDescription`, `CardAction`, `CardContent`, `CardFooter`
 
 ```tsx
 <Card>
   <CardHeader>
-    <CardTitle>Tieu de</CardTitle>
-    <CardDescription>Mo ta</CardDescription>
+    <CardTitle>Tiêu đề</CardTitle>
+    <CardDescription>Mô tả</CardDescription>
+    <CardAction><Button size="icon-sm">✕</Button></CardAction>
   </CardHeader>
-  <CardContent>Noi dung</CardContent>
+  <CardContent>Nội dung</CardContent>
   <CardFooter>Footer</CardFooter>
 </Card>
 
 <Card size="sm">Compact card</Card>
 ```
 
-### Input
+### 3. Input (18 lines)
 
 ```tsx
 <Input type="email" placeholder="Email" />
-<Input type="password" placeholder="Mat khau" />
+<Input type="password" placeholder="Mật khẩu" />
 ```
 
-## Theming
+### 4. Breadcrumb (105 lines)
 
-Su dung **oklch** color space cho tat ca design tokens:
+Sub-components: `Breadcrumb`, `BreadcrumbList`, `BreadcrumbItem`, `BreadcrumbLink`, `BreadcrumbSeparator`, `BreadcrumbPage`
 
-- Ho tro **Light** & **Dark** mode
-- CSS variables cho: `background`, `foreground`, `primary`, `secondary`, `muted`, `accent`, `destructive`, `border`, `input`, `ring`
-- Colors bo sung: `sidebar-*` (5 tokens), `chart-*` (5 colors)
-- Border radius: `sm`, `md`, `lg`, `xl` (dua tren `--radius: 0.625rem`)
+```tsx
+<Breadcrumb>
+  <BreadcrumbList>
+    <BreadcrumbItem><BreadcrumbLink href="/">Home</BreadcrumbLink></BreadcrumbItem>
+    <BreadcrumbSeparator />
+    <BreadcrumbItem><BreadcrumbPage>Current</BreadcrumbPage></BreadcrumbItem>
+  </BreadcrumbList>
+</Breadcrumb>
+```
 
-### Brand Colors
+### 5. Dropdown Menu (242 lines)
 
-| Color | Hex | Usage |
-|-------|-----|-------|
-| Gold Primary | `#FFD700` | Accents, highlights |
-| Gold Light | `#FFE44D` | Gradients |
-| Gold Dark | `#FFA500` | Gradients |
-| Navy Background | `#1a1a2e` | Dark mode background |
-| Navy Deep | `#16213e` | Gradient variation |
+Full-featured dropdown with items, groups, checkboxes, radio buttons, separators, labels, shortcuts
+
+```tsx
+<DropdownMenu>
+  <DropdownMenuTrigger asChild><Button>Open</Button></DropdownMenuTrigger>
+  <DropdownMenuContent>
+    <DropdownMenuItem>Item 1</DropdownMenuItem>
+    <DropdownMenuSeparator />
+    <DropdownMenuItem>Item 2</DropdownMenuItem>
+  </DropdownMenuContent>
+</DropdownMenu>
+```
+
+### 6. Navigation Menu (192 lines)
+
+Horizontal navigation with dropdowns
+
+```tsx
+<NavigationMenu>
+  <NavigationMenuList>
+    <NavigationMenuItem>
+      <NavigationMenuTrigger>Menu</NavigationMenuTrigger>
+      <NavigationMenuContent>
+        <NavigationMenuLink href="/item">Item</NavigationMenuLink>
+      </NavigationMenuContent>
+    </NavigationMenuItem>
+  </NavigationMenuList>
+</NavigationMenu>
+```
+
+### 7. ColorPalette (277 lines)
+
+Design system showcase - displays all theme colors with variables and descriptions
+
+```tsx
+<ColorPalette />
+```
+
+**Total Component LOC:** 988 lines
+
+## Theming - Royal Castle Theme
+
+Sử dụng **OkLch** color space cho tất cả design tokens:
+
+- Hỗ trợ **Light** & **Dark** mode
+- CSS variables cho: `background`, `foreground`, `primary`, `secondary`, `muted`, `accent`, `destructive`, `success`, `warning`, `border`, `input`, `ring`
+- Sidebar colors: `sidebar-background`, `sidebar-foreground`, etc.
+- Chart colors: `chart-1` through `chart-5`
+- Border radius: Based on `--radius: 0.625rem`
+
+### Brand Colors (OkLch)
+
+| Token | OkLch Value | Description |
+|-------|-------------|-------------|
+| **Primary** (Royal Gold) | `oklch(0.72 0.18 85)` | Main action color, highlights |
+| **Secondary** (Castle Stone) | `oklch(0.55 0.04 260)` | Secondary actions |
+| **Accent** (Mystical Purple) | `oklch(0.65 0.2 295)` | Special highlights |
+| **Destructive** (Battle Red) | `oklch(0.55 0.22 25)` | Danger actions |
+| **Success** (Green) | `oklch(0.6 0.17 145)` | Success states |
+| **Warning** (Orange) | `oklch(0.7 0.18 65)` | Warning states |
+| **Muted** (Stone) | `oklch(0.92 0.015 260)` | Disabled/inactive |
+| **Background** | `oklch(0.97 0.01 60)` | Light theme bg |
+| **Ring** | `foreground / 10` opacity | Focus ring |
 
 ### Dark mode activation
 
@@ -106,14 +171,31 @@ Su dung **oklch** color space cho tat ca design tokens:
 
 ## Exports
 
-| Path | Mo ta |
+| Path | Mô tả |
 |------|-------|
 | `@kgcentral/ui/globals.css` | Global styles + CSS variables |
-| `@kgcentral/ui/components/*` | React components |
-| `@kgcentral/ui/lib/*` | Utility functions |
-| `@kgcentral/ui/hooks/*` | React hooks |
-| `@kgcentral/ui/postcss.config` | PostCSS config |
+| `@kgcentral/ui/components/button` | Button component |
+| `@kgcentral/ui/components/card` | Card + sub-components |
+| `@kgcentral/ui/components/input` | Input component |
+| `@kgcentral/ui/components/breadcrumb` | Breadcrumb navigation |
+| `@kgcentral/ui/components/dropdown-menu` | Dropdown menu |
+| `@kgcentral/ui/components/navigation-menu` | Navigation menu |
+| `@kgcentral/ui/components/color-palette` | Color palette showcase |
+| `@kgcentral/ui/lib/utils` | `cn()` utility for class merging |
+| `@kgcentral/ui/postcss.config` | PostCSS configuration |
 
-## Su dung boi
+## Dependencies
 
-- `@kgcentral/frontend`
+| Package | Version | Purpose |
+|---------|---------|---------|
+| `@radix-ui/react-*` | 1.x | Unstyled accessible components |
+| `lucide-react` | 1.7.0 | Icon library (basic) |
+| `@hugeicons/react` | 1.1.6 | Icon library (premium) |
+| `class-variance-authority` | 0.7.1 | Component variants |
+| `clsx` | 2.1.1 | Conditional classNames |
+| `tailwind-merge` | 3.5.0 | Merge Tailwind classes |
+| `tailwindcss` | 4.2.2 | Styling framework |
+
+## Sử dụng bởi
+
+- `@kgcentral/frontend` - Main web app

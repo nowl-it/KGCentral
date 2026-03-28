@@ -1,20 +1,41 @@
 ---
 name: Feature request
-about: Suggest an idea for this project
-title: ''
-labels: ''
+about: Đề xuất ý tưởng mới cho KGCentral
+title: '[FEATURE] '
+labels: 'enhancement'
 assignees: ''
 
 ---
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+**Vấn đề liên quan (nếu có)**
+Mô tả rõ ràng về vấn đề. Ví dụ: Tôi luôn gặp khó khăn khi [...]
 
-**Describe the solution you'd like**
-A clear and concise description of what you want to happen.
+**Giải pháp đề xuất**
+Mô tả rõ ràng về những gì bạn muốn xảy ra.
 
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
+**Component liên quan**
+- [ ] Frontend (Next.js)
+- [ ] Backend (NestJS)
+- [ ] AI Service (FastAPI)
+- [ ] Database (Prisma)
+- [ ] UI Components
+- [ ] DevOps
+- [ ] Documentation
 
-**Additional context**
-Add any other context or screenshots about the feature request here.
+**Module cụ thể (nếu có)**
+- [ ] Wiki (Heroes, Equipment, Altars, Relics)
+- [ ] Team Builder
+- [ ] AI Recommendations
+- [ ] Tier List
+- [ ] Authentication
+- [ ] Forum
+- [ ] Khác: _______
+
+**Các giải pháp thay thế**
+Mô tả về các giải pháp thay thế hoặc tính năng khác bạn đã xem xét.
+
+**Mockups/Designs (nếu có)**
+Thêm mockups, wireframes hoặc designs nếu có.
+
+**Thông tin bổ sung**
+Thêm bất kỳ thông tin hoặc screenshots nào khác về feature request.

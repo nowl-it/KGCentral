@@ -2,6 +2,8 @@
 
 TypeScript types dùng chung cho toàn bộ KGCentral monorepo.
 
+> **📊 Status:** ✅ Complete - 7 types/interfaces exported and in use
+
 ## Sử dụng
 
 ```typescript
