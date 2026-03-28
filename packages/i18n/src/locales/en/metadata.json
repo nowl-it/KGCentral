@@ -1,0 +1,63 @@
+{
+	"title": {
+		"default": "KGCentral - King God Castle Community",
+		"template": "%s | KGCentral"
+	},
+	"description": "King God Castle Community: Wiki for characters and items, AI-powered Team Builder, community Tier List voting, Altar & Relic optimizer.",
+	"keywords": [
+		"King God Castle",
+		"KGC",
+		"Team Builder",
+		"Wiki",
+		"Tier List",
+		"Gaming",
+		"ARPG",
+		"Mobile Game",
+		"Strategy",
+		"Character Guide",
+		"Korean Game",
+		"Gaming Community",
+		"Guide"
+	],
+	"openGraph": {
+		"title": "KGCentral - King God Castle Community",
+		"description": "Wiki for characters and items, AI-powered Team Builder, community Tier List voting, Altar & Relic optimizer.",
+		"imageAlt": "KGCentral - King God Castle Community"
+	},
+	"twitter": {
+		"title": "KGCentral - King God Castle Community",
+		"description": "Wiki for characters and items, AI-powered Team Builder, community Tier List voting, Altar & Relic optimizer."
+	},
+	"manifest": {
+		"name": "KGCentral - King God Castle Community",
+		"shortName": "KGCentral",
+		"description": "King God Castle Community: Wiki, AI Team Builder, Tier List voting",
+		"shortcuts": {
+			"wiki": {
+				"name": "Wiki",
+				"shortName": "Wiki",
+				"description": "Browse characters and items information"
+			},
+			"teamBuilder": {
+				"name": "Team Builder",
+				"shortName": "Team",
+				"description": "Build teams with AI assistance"
+			},
+			"tierList": {
+				"name": "Tier List",
+				"shortName": "Tier",
+				"description": "Character tier rankings"
+			},
+			"altar": {
+				"name": "Altar",
+				"shortName": "Altar",
+				"description": "Optimize Altar setup"
+			},
+			"relic": {
+				"name": "Relic",
+				"shortName": "Relic",
+				"description": "Optimize Relic setup"
+			}
+		}
+	}
+}

@@ -1,0 +1,63 @@
+{
+	"title": {
+		"default": "KGCentral - Cộng đồng King God Castle",
+		"template": "%s | KGCentral"
+	},
+	"description": "Cộng đồng King God Castle: Wiki tra cứu nhân vật và vật phẩm, Team Builder với đề xuất đội hình AI, Tier List voting cộng đồng, Altar & Relic optimizer.",
+	"keywords": [
+		"King God Castle",
+		"KGC",
+		"Team Builder",
+		"Wiki",
+		"Tier List",
+		"Gaming",
+		"ARPG",
+		"Mobile Game",
+		"Strategy",
+		"Character Guide",
+		"Game Hàn Quốc",
+		"Cộng đồng game",
+		"Hướng dẫn"
+	],
+	"openGraph": {
+		"title": "KGCentral - Cộng đồng King God Castle",
+		"description": "Wiki tra cứu nhân vật và vật phẩm, Team Builder với đề xuất đội hình AI, Tier List voting cộng đồng, Altar & Relic optimizer.",
+		"imageAlt": "KGCentral - Cộng đồng King God Castle"
+	},
+	"twitter": {
+		"title": "KGCentral - Cộng đồng King God Castle",
+		"description": "Wiki tra cứu nhân vật và vật phẩm, Team Builder với đề xuất đội hình AI, Tier List voting cộng đồng, Altar & Relic optimizer."
+	},
+	"manifest": {
+		"name": "KGCentral - Cộng đồng King God Castle",
+		"shortName": "KGCentral",
+		"description": "Cộng đồng King God Castle: Wiki, Team Builder với AI, Tier List voting",
+		"shortcuts": {
+			"wiki": {
+				"name": "Wiki",
+				"shortName": "Wiki",
+				"description": "Tra cứu thông tin nhân vật và vật phẩm"
+			},
+			"teamBuilder": {
+				"name": "Team Builder",
+				"shortName": "Team",
+				"description": "Xây dựng đội hình với AI"
+			},
+			"tierList": {
+				"name": "Tier List",
+				"shortName": "Tier",
+				"description": "Bảng xếp hạng nhân vật"
+			},
+			"altar": {
+				"name": "Altar",
+				"shortName": "Altar",
+				"description": "Tối ưu hóa Altar"
+			},
+			"relic": {
+				"name": "Relic",
+				"shortName": "Relic",
+				"description": "Tối ưu hóa Relic"
+			}
+		}
+	}
+}

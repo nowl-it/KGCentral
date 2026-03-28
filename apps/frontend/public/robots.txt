@@ -1,0 +1,18 @@
+# robots.txt for KGCentral
+
+User-agent: *
+Allow: /
+
+# Disallow admin and API routes
+Disallow: /api/
+Disallow: /admin/
+
+# Allow crawling of important pages
+Allow: /wiki/
+Allow: /team-builder/
+Allow: /tier-list/
+Allow: /altar/
+Allow: /relic/
+
+# Sitemap location
+Sitemap: https://kgcentral.com/sitemap.xml

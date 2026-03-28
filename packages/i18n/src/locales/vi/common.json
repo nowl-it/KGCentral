@@ -1,0 +1,38 @@
+{
+	"appName": "KGCentral",
+	"loading": "Đang tải...",
+	"error": "Đã xảy ra lỗi",
+	"create": "Tạo",
+	"notFound": {
+		"title": "Không tìm thấy trang",
+		"description": "Trang bạn đang tìm kiếm không tồn tại hoặc đã bị di chuyển.",
+		"backHome": "Về trang chủ"
+	},
+	"footer": {
+		"tagline": "Cộng đồng King God Castle hàng đầu",
+		"description": "Nền tảng cộng đồng dành cho người chơi King God Castle. Chia sẻ chiến lược, tìm đồng đội và cập nhật tin tức mới nhất.",
+		"sections": {
+			"product": "Sản phẩm",
+			"resources": "Tài nguyên",
+			"community": "Cộng đồng",
+			"legal": "Pháp lý"
+		},
+		"links": {
+			"guides": "Hướng dẫn",
+			"tierList": "Bảng xếp hạng",
+			"builds": "Build nhân vật",
+			"events": "Sự kiện",
+			"news": "Tin tức",
+			"wiki": "Wiki",
+			"api": "API",
+			"discord": "Discord",
+			"reddit": "Reddit",
+			"youtube": "YouTube",
+			"terms": "Điều khoản sử dụng",
+			"privacy": "Chính sách bảo mật",
+			"cookies": "Chính sách Cookie"
+		},
+		"disclaimer": "KGCentral là dự án cộng đồng không chính thức. Không liên kết hoặc được chứng thực bởi Awesomepiece.",
+		"copyright": "© {year} KGCentral. Mọi quyền được bảo lưu."
+	}
+}
