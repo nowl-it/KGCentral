@@ -7,7 +7,7 @@ import { type ComponentPropsWithoutRef, forwardRef } from 'react';
 function NavigationMenu({
 	className,
 	children,
-	viewport = true,
+	viewport = false,
 	...props
 }: React.ComponentProps<typeof NavigationMenuPrimitive.Root> & {
 	viewport?: boolean;
@@ -159,7 +159,7 @@ const NavigationMenuListItem = forwardRef<
 				<a
 					ref={ref}
 					className={cn(
-						'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent/10 hover:text-accent-foreground focus:bg-accent/10 focus:text-accent-foreground',
+						'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-muted focus:bg-muted/10',
 						className
 					)}
 					{...props}

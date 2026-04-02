@@ -1,101 +1,148 @@
 # King God Castle - Game Data Summary
 
-> Nguồn: kgc.fandom.com, NamuWiki, community tier list (2025-2026)
+**Data Source:** Reversed from game version 167.0.01  
+**Last Updated:** 2025-01-XX
 
-## Heroes
+## Statistics
 
-### Classes (6 loại)
-| Class | Vai trò | Ví dụ |
-|-------|---------|-------|
-| **Swiftness** | Archer/Ranged DPS | Aramis, Hansi, Rahawk, Bombie, Bardrey |
-| **Courage** | Fighter/Melee DPS | Evan, Leonhardt, Daniel, Jol, Mel |
-| **Tenacity** | Tank/Bruiser | Shelda, Chung Ah, Zuo Yun, Behemus, Rossette |
-| **Elemental** | Mage/AoE | Priya, Yeon, Lily, Draco, Zupitere, Hela |
-| **Shadow** | Assassin/Burst | Lyca, Mara, Ren, Cain |
-| **Mystique** | Support/Healer | Luniare, Asiaq, Mirsyl, Alberon |
+| Category | Count |
+|----------|-------|
+| Heroes | 72 |
+| Altars/Buildings | 15 |
+| Equipment Items | 273 |
+| Artifacts | 318 |
+| Synergies | 62 |
 
-### Regions (5 vùng)
-- **Central**: Aramis, Evan, Shelda, Priya, Lyca, Mel
-- **North**: Leonhardt, Mara, Luniare, Rahawk, Asiaq, Bombie, Cain
-- **East**: Chung Ah, Yeon, Zuo Yun, Hansi
-- **West**: Lily, Jol, Draco, Mirsyl
-- **South**: Daniel, Ren, Behemus, Rossette, Zupitere, Bardrey, Alberon, Hela
+## Heroes by Region
 
-### Top Tier Meta (2026)
-Luniare, Mano, Bardrey, Ian, Mel, Kirdan, Garam, Tia, Haerang, Neria
+| Region | Count | Heroes |
+|--------|-------|--------|
+| North | 20 | Leonhardt, Mara, Luniare, Rahawk, Asiaq, Bombie, Cain, Lyca, Agathe, Gidnil, Kanak, Rie, Nibella, Taebaek, Baldir, Ophelia, Kirdan, Victoria, Elizabeth, Dandelyn |
+| South | 15 | Daniel, Ren, Behemus, Rossette, Zupitere, Bardrey, Alberon, Hela, Zuo Bai, Tya, Neria, Esthea, Ian, Aenrath, Farael |
+| East | 13 | Chung Ah, Yeon, Zuo Yun, Hansi, Thái Sơn, Hải Lang, Makina, Mano, Stone Spirit, Saeryung, Garam, Jinju, Suha |
+| West | 12 | Lily, Jol, Draco, Mirsyl, Cathy, Priya, Aramis, Evan, Shelda, Luniare, Mel, Bombie |
+| Central | 12 | Aramis, Evan, Shelda, Priya, Lyca, Mel, Halla, Diane, Ternev + more |
 
-## Star System (Tier)
+## Heroes by Class/Role
 
-| Tier | Stats Multiplier |
-|------|------------------|
-| Tier 1 | 1.0x |
-| Tier 2 | 1.5x |
-| Tier 3 | 2.2x |
-| Tier 4 | 3.3x |
-| Tier 5 | 4.8x |
+| Class | Count | Description |
+|-------|-------|-------------|
+| Tenacity | 15 | Tank - High HP, shield generation, frontline |
+| Mystique | 13 | Support - Healing, buffing, mana regen |
+| Shadow | 12 | Assassin - Backstab, crit damage, stealth |
+| Courage | 11 | Fighter - Balanced, stun abilities |
+| Swiftness | 11 | Archer - Ranged DPS, attack speed |
+| Elemental | 10 | Mage - Magic damage, AoE skills |
 
-- Merge same hero để tăng tier
-- Dùng Book of Power để tăng tier
+## 6 Altars (Buildings)
 
-## Altars (Tế Đàn)
+| ID | Altar | Effect | Max Level |
+|----|-------|--------|-----------|
+| 0 | Hero Altar | % chance to tier up on summon | 15 |
+| 1 | Blacksmith | % chance to tier up equipment on forge | 15 |
+| 2 | Blood Altar | Increases HP | 15 |
+| 3 | Giant Altar | Increases ATK | 15 |
+| 4 | Mage Altar | Increases Magic ATK | 15 |
+| 5 | Greed Altar | Increases gold income | 15 |
 
-**Tổng điểm:** 25 (chia cho 6 loại)  
-**Max level mỗi loại:** 15
+**Total Altar Points:** 25 per game  
+**Distribution Strategy:** Focus on 2-3 altars based on team composition
 
-| Altar | Level 1 | Level 5 | Level 10 | Level 15 |
-|-------|---------|---------|----------|----------|
-| **Hero** | % tier up khi summon | % tier up khi merge | Book of Power Lv.1 | Book of Power Lv.2 |
-| **Blacksmith** | % tier up equipment | Smelt Tier 1 | Smelt Tier 2 + 1 Reroll | Smelt Tier 3 + 2 Reroll |
-| **Blood** | HP Drain | +% Final ATK | Mighty Block x2 | Mighty Block x3 |
-| **Giant** | +15-225 DEF | +% Final HP | +10% Reflect | +20% Reflect |
-| **Mage** | % Initial MP | +% Spell Power | +50% MP on kill | +99% MP on kill |
-| **Greed** | +Silver | +Elite Silver | 20% Merchant discount | 40% Merchant discount |
+## Equipment Types
 
-### Popular Altar Combos
-- **15 Hero + 10 Greed** - Economy build
-- **15 Blacksmith + 10 Hero** - Fast clear
-- **15 Blood + 10 Giant** - Sustain tank
+| Type | Count | Description |
+|------|-------|-------------|
+| Sword | 4 | Melee weapon, ATK bonus |
+| Armor | 4 | Defense, HP bonus |
+| Bow | 4 | Ranged weapon, Attack Speed |
+| Staff | 4 | Magic weapon, MATK bonus |
+| Rune | 64 | Special effects |
+| GodItem | 7 | Ultimate tier items |
+| RiftWeapon | 6 | Special weapons |
 
-## Relics
+## Tier System
 
-**Equip slots:** 3  
-**Max level:** 4 (Tier: Normal → King → God → King God)
+Heroes and equipment have tiers 1-4:
 
-### Types
-- **Normal**: Equipment stat boost (sword, staff, bow, armor)
-- **Rare**: Special effects (gold earning)
-- **Corruption**: Altar enhancement
-- **Arena**: PvP specific
-- **Special**: Unique effects
+| Tier | Stars | Merge Requirement |
+|------|-------|-------------------|
+| 1 | ★ | Base |
+| 2 | ★★ | 2x Tier 1 |
+| 3 | ★★★ | 2x Tier 2 |
+| 4 | ★★★★ | 2x Tier 3 |
 
-## Synergy System
+## Region Synergy
 
-### Region Synergy
-- East heroes mạnh early-game (khuyến nghị 2-3 East heroes)
-- Các region khác có synergy riêng theo comp
+Having multiple heroes from the same region activates synergy:
 
-### Class Synergy
-Kết hợp các class để balance team:
-- Tenacity (tank) ở front
-- Courage (fighter) ở mid
-- Swiftness/Elemental (ranged) ở back
-- Mystique (support) buff team
+| Heroes | Bonus |
+|--------|-------|
+| 2 | +5 Altar Level |
+| 3 | +10 Altar Level |
+| 4 | +15 Altar Level |
+| 5 | +20 Altar Level |
+| 6 | +25 Altar Level |
 
-## Key Mechanics
+## Meta Heroes (Patch 167.0.01)
 
-- **Mighty Block**: Chặn damage tuyệt đối
-- **HP Drain**: Hút máu từ damage
-- **Reflect**: Phản damage (giảm 50% với spell)
-- **Protection**: Shield/giáp bảo vệ
-- **Book of Power**: Tăng tier hero
+### S+ Tier (Must Have)
+- **Luniare** (Mystique/North) - Best support, mana battery
+- **Bardrey** (Swiftness/South) - Mana regen for team
+- **Mel** (Courage/Central) - Burst DPS
 
-## Team Building Strategy
+### S Tier (Very Strong)
+- **Ian** (Tenacity/South) - Best tank
+- **Mano** (Elemental/East) - Magic DPS
+- **Victoria** (Shadow/North) - Assassin
 
-1. **Hero Lock comp**: Lock hero tốt, farm tier
-2. **Gang Strat**: 5 Heroes + 1 Tank
-3. **Raid comp**: High burst damage
-4. **Armor comp**: Tank heavy với reflect
+### A Tier (Solid Picks)
+- Shelda, Daniel, Leonhardt, Evan
+- Asiaq, Mirsyl, Alberon
+- Priya, Hela, Draco
 
----
+## Team Composition Tips
 
-*Lưu ý: Game update thường xuyên, thông tin có thể thay đổi. Kiểm tra wiki hoặc Discord chính thức để có data mới nhất.*
+1. **Standard Team (5-6 heroes):**
+   - 1-2 Tanks (Tenacity)
+   - 2-3 DPS (Courage/Swiftness/Elemental/Shadow)
+   - 1 Support (Mystique)
+
+2. **Region Synergy Focus:**
+   - Pick 3+ heroes from same region for altar bonus
+   - North has most options (20 heroes)
+
+3. **Altar Priority:**
+   - Early game: Hero Altar (tier up chance)
+   - Mid game: Blood/Giant based on team
+   - Late game: Specialize based on carry
+
+## Data Files
+
+All data is extracted to JSON files in this directory:
+
+- `heroes/all-heroes.json` - 72 heroes with stats, skills, descriptions
+- `altars/all-altars.json` - 15 buildings with effects
+- `relics/all-relics.json` - 318 artifacts
+- `equipment/all-equipment.json` - 273 items
+- `synergies/all-synergies.json` - 62 synergy definitions
+
+## API Endpoints
+
+Use the AI service to query this data:
+
+```bash
+# Get all heroes
+curl http://localhost:5000/api/v1/game/heroes
+
+# Get heroes by region
+curl http://localhost:5000/api/v1/game/heroes/region/North
+
+# Get heroes by class
+curl http://localhost:5000/api/v1/game/heroes/role/Mystique
+
+# Search hero by name
+curl http://localhost:5000/api/v1/game/heroes/search/Luniare
+
+# Get stats summary
+curl http://localhost:5000/api/v1/game/stats
+```

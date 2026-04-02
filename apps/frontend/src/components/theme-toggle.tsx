@@ -8,7 +8,7 @@ import {
 	DropdownMenuTrigger,
 } from '@kgcentral/ui/components/dropdown-menu';
 import { CheckIcon, Moon, Sun } from 'lucide-react';
-import { useTheme } from 'next-themes';
+import { useTheme } from '@/components/providers';
 
 export default function ThemeToggleComponent() {
 	const { theme: currentTheme, themes, setTheme } = useTheme();

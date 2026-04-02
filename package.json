@@ -16,9 +16,9 @@
 		"k3s:undeploy": "kubectl delete -k devops/k8s/overlays/dev"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "^2.4.9",
-		"turbo": "^2.4.4",
-		"typescript": "^5.7.3"
+		"@biomejs/biome": "^2.4.10",
+		"turbo": "^2.9.3",
+		"typescript": "^5.9.3"
 	},
 	"packageManager": "pnpm@9.15.4",
 	"engines": {

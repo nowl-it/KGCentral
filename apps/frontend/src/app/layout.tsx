@@ -21,15 +21,10 @@ const sans = Be_Vietnam_Pro({
 	weight: ['400', '500', '600', '700'],
 });
 const heading = localFont({
-	src: 'fonts/FVF-Fernando-08.ttf',
+	src: 'fonts/SVN-Determination Sans.otf',
 	variable: '--font-heading',
 	display: 'swap',
-	weight: '400',
-	declarations: [
-		{ prop: 'ascent-override', value: '100%' }, // Giảm phần thừa phía trên (chỉnh % tùy ý)
-		{ prop: 'descent-override', value: '0%' }, // Giảm phần thừa phía dưới
-		{ prop: 'line-gap-override', value: '0%' }, // Triệt tiêu khoảng cách thừa
-	],
+	weight: '900',
 });
 
 export { generateMetadata };

@@ -21,6 +21,9 @@ if ! python -c "import uvicorn" 2>/dev/null; then
     pip install -e . --quiet
 fi
 
+echo "🔍 Killing existing uvicorn processes..."
+killall uvicorn 2>/dev/null || true
+
 echo "✅ Dependencies ready"
 echo "🚀 Starting server on http://localhost:5000"
 echo ""

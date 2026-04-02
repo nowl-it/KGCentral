@@ -198,10 +198,21 @@ apps/ai-service/src/
 
 > **⚠️ AI Service Status:**
 > - ✅ AI Chat with Qwen2.5:3b (Ollama) - working
-> - ✅ Game Data API (heroes, relics) - working
-> - ✅ Team Synergy Calculator - working  
-> - ✅ PyTorch neural networks defined
+> - ✅ Game Data API - 72 heroes, 318 artifacts, 273 equipment from reversed data
+> - ✅ Team Synergy Calculator - 4-factor scoring (region, class, altar, relic)
+> - ✅ PyTorch neural networks defined (128K params)
 > - 🔲 Model training with real data - planned
+
+### Game Data (Version 167.0.01)
+
+Data reversed from game APK:
+- **72 Heroes** - 6 classes (Tenacity, Courage, Swiftness, Elemental, Shadow, Mystique)
+- **5 Regions** - North (20), South (15), East (13), West (12), Central (12)
+- **318 Artifacts** - Various types
+- **273 Equipment** - Sword, Armor, Bow, Staff, Rune, GodItem
+- **62 Synergies** - Region-based altar bonuses
+
+Data files: `docs/game-data/` (JSON format)
 
 ### Next.js Frontend Structure
 
@@ -273,9 +284,10 @@ pnpm k3s:undeploy     # Remove from dev environment
 
 ### ✅ Completed
 - Frontend infrastructure (landing page, navigation, i18n, theme)
-- **AI Chat** - Chat UI + Qwen2.5:3b backend
-- **Game Data API** - Heroes, relics from JSON files
+- **AI Chat** - Chat UI + Qwen2.5:3b backend (dynamic system prompt)
+- **Game Data API** - 72 heroes, 318 artifacts, 273 equipment, 62 synergies
 - **Team Synergy Calculator** - 4-factor scoring system
+- **Data Parser** - `data-reverse/parse_game_data.py` extracts from XML
 - Backend basic auth (login/register with JWT)
 - All 5 shared packages (config, database, i18n, types, ui)
 - DevOps configs (Docker, K8s)

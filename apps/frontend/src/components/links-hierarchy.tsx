@@ -37,7 +37,7 @@ export default function LinksHierarchyComponent() {
 	}
 
 	return (
-		<Breadcrumb className="sticky top-14 p-2 px-6.5 bg-background/20 backdrop-blur z-10 border-y">
+		<Breadcrumb className="sticky top-12 p-2 px-6.5 bg-background/20 backdrop-blur z-10 border-y">
 			<BreadcrumbList>
 				<BreadcrumbItem>
 					<BreadcrumbLink asChild>

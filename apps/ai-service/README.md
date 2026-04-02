@@ -2,6 +2,10 @@
 
 Dịch vụ AI inference của KGCentral, xây dựng bằng **FastAPI** và **PyTorch**, được tối ưu cho **Raspberry Pi 4** (CPU-only).
 
+## 🏰 Royal Guard AI
+
+AI Chat được thiết kế với persona **Cận Vệ Hoàng Gia** - xưng "thần", gọi người dùng là "Bệ hạ". Sử dụng RAG (Retrieval Augmented Generation) để cung cấp thông tin chính xác từ game data.
+
 ## Tech Stack
 
 - **FastAPI 0.115.12** - Web framework ✅
@@ -10,80 +14,66 @@ Dịch vụ AI inference của KGCentral, xây dựng bằng **FastAPI** và **P
 - **Pydantic 2.10.0** - Data validation & settings ✅
 - **uvicorn** - ASGI server ✅
 - **Python** ≥ 3.12 ✅
-- **i18next** - Internationalization (vi/en) ✅
 
 ## Implementation Status
 
 ### ✅ Fully Implemented
 
-- **AI Chat** - Chat với Qwen2.5:3b qua Ollama (tiếng Việt tốt)
-- **Game Data API** - Load heroes/relics từ JSON files
+- **AI Chat với persona Cận Vệ Hoàng Gia**
+  - RAG: Inject dữ liệu hero thực vào prompt
+  - Auto-detect ngôn ngữ từ user message
+  - Few-shot learning với ví dụ mẫu
+  - Markdown formatted responses
+- **Game Data API** - 72 heroes, 318 artifacts, 273 equipment
+  - **13 ngôn ngữ**: en, vi, ko, ja, zh-CN, zh-TW, de, fr, es, pt, ru, th, ar
+  - Sử dụng bản dịch chính thức từ game
 - **Team Synergy Calculator** - Tính điểm synergy với 4 factors
 - **PyTorch Neural Networks** - TeamRecommender model (128K params)
-- **Health check** - `/health` endpoint
-- FastAPI server structure
-- Route organization
-- Pydantic Settings configuration
-- CORS middleware
-- i18n support (Vietnamese/English)
-- API documentation (Swagger/ReDoc)
+- Health check, CORS, API documentation (Swagger/ReDoc)
 
 ### 🔲 Planned
 
 - Neural network training với real data
 - Model fine-tuning cho game-specific recommendations
 
-## Cấu Trúc
+## Game Data (Version 167.0.01)
 
-```
-src/
-├── main.py              # FastAPI app, CORS, router registration
-├── config.py            # Settings (Pydantic BaseSettings)
-├── i18n.py              # i18n setup (vi/en)
-├── game_data.py         # Load heroes/relics từ JSON
-├── synergy.py           # Team synergy calculator
-├── ai_manager.py        # PyTorch model manager
-├── training.py          # Training utilities
-├── models/
-│   ├── __init__.py
-│   └── neural_nets.py   # HeroEmbedding, TeamSynergyNet, TeamRecommender
-└── routes/
-    ├── health.py        # Health check ✅
-    ├── inference.py     # AI inference
-    ├── models.py        # Model management
-    ├── game.py          # Game data API ✅
-    └── chat.py          # AI Chat với Ollama ✅
-```
+| Category | Count | Languages |
+|----------|-------|-----------|
+| Heroes | 72 | 13 |
+| Artifacts | 318 | 13 |
+| Equipment | 273 | - |
+| Altars | 15 | 13 |
+| Synergies | 62 | 13 |
+
+**Supported Languages:** English, Tiếng Việt, 한국어, 日本語, 简体中文, 繁體中文, Deutsch, Français, Español, Português, Русский, ไทย, العربية
 
 ## API Endpoints
-
-### Health
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/health` | Health check |
 
 ### Chat (AI Assistant)
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | `GET` | `/api/v1/chat/status` | Check Ollama & model status |
-| `POST` | `/api/v1/chat/` | Chat với AI về King God Castle |
-| `POST` | `/api/v1/chat/quick` | Quick chat (không cần history) |
+| `GET` | `/api/v1/chat/languages` | Get supported languages |
+| `POST` | `/api/v1/chat/` | Chat với AI (auto-detect language) |
+| `POST` | `/api/v1/chat/quick` | Quick chat |
 
 **Chat Request:**
 ```json
 {
-  "message": "Có bao nhiêu heroes trong game?",
-  "history": []
+  "message": "루니아르는 어떤 클래스야?",
+  "history": [],
+  "language": null
 }
 ```
 
-**Chat Response:**
+**Chat Response (Markdown format):**
 ```json
 {
-  "response": "Tổng số heroes trong game là 70.",
-  "model": "qwen2.5:3b"
+  "response": "**루니아르**는 **Mystique** 클래스의 서포터입니다.\n\n| 정보 | 값 |\n|------|----|\n| 지역 | North |\n| 역할 | 힐러/버퍼 |",
+  "model": "qwen2.5:3b",
+  "language": "ko"
 }
 ```
 
@@ -91,111 +81,73 @@ src/
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| `GET` | `/api/v1/game/heroes` | Danh sách tất cả heroes |
-| `GET` | `/api/v1/game/heroes/region/{region}` | Heroes theo vùng |
-| `GET` | `/api/v1/game/heroes/{hero_id}` | Chi tiết hero |
-| `GET` | `/api/v1/game/relics` | Danh sách relics |
-| `POST` | `/api/v1/game/team/analyze` | Phân tích team synergy |
+| `GET` | `/api/v1/game/languages` | Get supported languages |
+| `GET` | `/api/v1/game/stats` | Game data statistics |
+| `GET` | `/api/v1/game/heroes?lang=vi` | All heroes (localized) |
+| `GET` | `/api/v1/game/heroes?region=North&lang=ko` | Filter by region |
+| `GET` | `/api/v1/game/heroes/search/{name}` | Search by name (any lang) |
+| `GET` | `/api/v1/game/relics?lang=ja` | Artifacts (localized) |
+| `GET` | `/api/v1/game/synergies?lang=zh-CN` | Synergies (localized) |
+| `POST` | `/api/v1/game/team/analyze` | Analyze team synergy |
 
-**Team Analysis Request:**
+**Hero Response (with `lang=vi`):**
 ```json
 {
-  "hero_ids": ["hero_east_001", "hero_west_001", ...],
-  "altar_build": {"hero": 10, "blacksmith": 5, ...},
-  "relic_ids": ["relic_summon_001", ...]
-}
-```
-
-**Team Analysis Response:**
-```json
-{
-  "total_score": 79.0,
-  "grade": "A",
-  "breakdown": {
-    "region_synergy": {"score": 40, "dominant_region": "east"},
-    "class_balance": {"score": 100, "variety": 6},
-    "altar_match": {"score": 70},
-    "relic_synergy": {"score": 100}
+  "id": 10230,
+  "name": "Luniare",
+  "names": {
+    "en": "Luniare",
+    "vi": "Luniare", 
+    "ko": "루니아르",
+    "ja": "ルニアレ"
   },
-  "recommendations": ["Consider adding more heroes from east region"]
+  "region": "North",
+  "role": "Mystique",
+  "skillName": "Blessing of the Moon",
+  "skillDescription": "Hồi phục HP cho đồng minh..."
 }
-```
-
-## Cấu Hình
-
-```env
-# apps/ai-service/.env
-DEVICE=cpu
-LOG_LEVEL=info
-MODEL_DIR=/models
-DEFAULT_LOCALE=vi
 ```
 
 ## Chạy Development
 
-### 1. Setup Ollama (cho AI Chat)
+### 1. Setup Ollama + Custom Model
 
 ```bash
-# Cài đặt Ollama (nếu chưa có)
+# Cài đặt Ollama
 curl -fsSL https://ollama.com/install.sh | sh
 
-# Pull model (chọn 1 trong 2)
-ollama pull qwen2.5:3b   # Nhẹ, phù hợp RPi4 (~2GB RAM)
-ollama pull qwen2.5:7b   # Chất lượng cao hơn (~5GB RAM)
+# Option A: Sử dụng custom model (recommended)
+cd apps/ai-service
+./setup-model.sh   # Tạo kgcentral-guard model
+
+# Option B: Sử dụng model gốc
+ollama pull qwen2.5:3b
 ```
 
 ### 2. Chạy AI Service
 
 ```bash
 cd apps/ai-service
-
-# Tạo virtual environment
 python3 -m venv venv
 source venv/bin/activate
-
-# Cài đặt dependencies
 pip install fastapi uvicorn httpx torch pydantic-settings
-
-# Chạy server
 uvicorn src.main:app --reload --host 0.0.0.0 --port 5000
 ```
 
-Server chạy tại [http://localhost:5000](http://localhost:5000).
-
-API docs (Swagger): [http://localhost:5000/docs](http://localhost:5000/docs)
+API docs: [http://localhost:5000/docs](http://localhost:5000/docs)
 
 ## Raspberry Pi 4 Compatibility
 
-| Component | RAM | RPi4 8GB |
-|-----------|-----|----------|
-| OS + overhead | ~1GB | ✅ |
-| Qwen2.5:3b | ~2.5GB | ✅ |
-| FastAPI + PyTorch | ~500MB | ✅ |
-| **Total** | ~4GB | ✅ Còn dư ~4GB |
-
-**Recommend cho RPi4:** `qwen2.5:3b` (balance tốt giữa chất lượng và performance)
-
-## i18n
-
-Service hỗ trợ đa ngôn ngữ:
-
-```python
-from src.i18n import t
-
-t("health.ok")              # "Dịch vụ hoạt động tốt" (Vietnamese)
-t("health.ok", locale="en") # "Service is healthy" (English)
-```
+| Component | RAM |
+|-----------|-----|
+| OS + overhead | ~1GB |
+| Qwen2.5:3b | ~2.5GB |
+| FastAPI + PyTorch | ~500MB |
+| **Total** | ~4GB ✅ |
 
 ## Docker
 
 ```bash
 docker build -f devops/docker/Dockerfile.ai-service -t kgcentral-ai .
 docker run -p 5000:5000 kgcentral-ai
-```
-
-## Linting
-
-```bash
-ruff check src/
-ruff format src/
 ```

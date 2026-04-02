@@ -1,5 +1,18 @@
 import { type I18nConfig } from 'next-i18next/proxy';
 
+export const languages = [
+	{
+		code: 'vi',
+		name: 'Tiếng Việt',
+		flag: '🇻🇳',
+	},
+	{
+		code: 'en',
+		name: 'English',
+		flag: '🇺🇸',
+	},
+];
+
 const i18nConfig: I18nConfig = {
 	supportedLngs: ['vi', 'en'],
 	fallbackLng: 'vi',

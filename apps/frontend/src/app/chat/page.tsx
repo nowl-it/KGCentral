@@ -2,8 +2,10 @@
 
 import { Button } from '@kgcentral/ui/components/button';
 import { cn } from '@kgcentral/ui/lib/utils';
-import { Bot, Crown, Loader2, Send, Sparkles, User } from 'lucide-react';
+import { Bot, Loader2, Send, Sparkles, User } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 interface Message {
 	id: string;
@@ -152,7 +154,7 @@ export default function ChatPage() {
 			<div className="flex-1 overflow-y-auto py-4 space-y-4">
 				{messages.length === 0 ? (
 					<div className="flex flex-col items-center justify-center h-full text-center">
-						<Crown className="size-16 text-primary/30 mb-4" />
+						<Bot className="size-40 text-primary mb-4" />
 						<h2 className="text-lg font-heading mb-2">Xin chào! 👋</h2>
 						<p className="text-muted-foreground mb-6 max-w-md">
 							Tôi là trợ lý AI của KGCentral. Hỏi tôi bất cứ điều gì về game King God
@@ -209,7 +211,18 @@ export default function ChatPage() {
 											: 'bg-muted rounded-tl-sm'
 									)}
 								>
-									<p className="whitespace-pre-wrap">{message.content}</p>
+									<div
+										className={cn(
+											'max-w-none',
+											message.role === 'assistant'
+												? 'prose prose-sm dark:prose-invert text-foreground'
+												: ''
+										)}
+									>
+										<ReactMarkdown remarkPlugins={[remarkGfm]}>
+											{message.content}
+										</ReactMarkdown>
+									</div>
 									<p
 										className={cn(
 											'text-[10px] mt-1',

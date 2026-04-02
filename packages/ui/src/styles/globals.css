@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin '@tailwindcss/typography';
 @source "../../../apps/**/*.{ts,tsx}";
 @source "../../../components/**/*.{ts,tsx}";
 @source "../**/*.{ts,tsx}";
@@ -74,6 +75,8 @@
   --sidebar-accent-foreground: oklch(0.25 0.02 280);
   --sidebar-border: oklch(0.85 0.02 260 / 30%);
   --sidebar-ring: oklch(0.72 0.18 85);
+
+  --text-5xl--line-height: 1.4;
 }
 
 .dark {
@@ -216,6 +219,15 @@
     }
   }
 
+  @keyframes gold-shimmer-sweep {
+    0% {
+      transform: translate3d(-140%, 0, 0);
+    }
+    100% {
+      transform: translate3d(140%, 0, 0);
+    }
+  }
+
   @keyframes castle-float {
     0%, 100% {
       transform: translateY(0px);
@@ -306,12 +318,40 @@
 
   /* Button Effects */
   .btn-gold-shimmer {
-    background: linear-gradient(90deg,
-                  oklch(0.72 0.18 85) 0%,
-                  oklch(0.8 0.22 90) 50%,
-                  oklch(0.72 0.18 85) 100%);
-    background-size: 200% 100%;
-    animation: gold-shimmer 2.5s linear infinite;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background: linear-gradient(135deg,
+                  oklch(0.68 0.17 84) 0%,
+                  oklch(0.74 0.2 88) 55%,
+                  oklch(0.66 0.15 78) 100%);
+  }
+
+  .btn-gold-shimmer::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    z-index: 0;
+    background: linear-gradient(110deg,
+                  transparent 0%,
+                  transparent 38%,
+                  oklch(0.93 0.15 96 / 0.42) 50%,
+                  transparent 62%,
+                  transparent 100%);
+    transform: translate3d(-140%, 0, 0);
+    will-change: transform;
+    animation: gold-shimmer-sweep 2.4s linear infinite;
+  }
+
+  .btn-gold-shimmer > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn-gold-shimmer::before {
+      animation: none;
+    }
   }
 
   /* Tier Colors for Character Rankings */
