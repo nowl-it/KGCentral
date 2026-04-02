@@ -7,6 +7,9 @@
 ### ✅ Đã Hoàn Thành
 
 - **Landing Page** - Trang chủ với hero section, feature showcase
+- **AI Chat** - Chat với AI về game King God Castle (Qwen2.5 via Ollama)
+- **Game Data API** - API tra cứu heroes, relics từ JSON files
+- **Team Synergy Calculator** - Tính điểm synergy với 4 factors (Grade S+ đến D)
 - **Navigation** - Menu điều hướng với dropdown structure
 - **Đa ngôn ngữ** - Hỗ trợ Tiếng Việt và English (i18next)
 - **Theme Switching** - Light/Dark/System modes
@@ -48,7 +51,7 @@ KGCentral/
 | Monorepo | pnpm workspaces + Turborepo |
 | Frontend | Next.js 16, React 19, Tailwind CSS v4, shadcn/ui |
 | Backend | NestJS 11, Zod, JWT, bcrypt |
-| AI Service | FastAPI, PyTorch, Pydantic |
+| AI Service | FastAPI, PyTorch, Ollama (Qwen2.5) |
 | Database | PostgreSQL 17, Prisma ORM |
 | i18n | i18next (Tiếng Việt mặc định) |
 | Linting | Biome (JS/TS), Ruff (Python) |

@@ -12,20 +12,37 @@ router = APIRouter()
 
 # Ollama config
 OLLAMA_URL = "http://localhost:11434"
-MODEL_NAME = "qwen2.5:7b"
+MODEL_NAME = "qwen2.5:3b"  # Lighter model for RPi4 compatibility (~2GB RAM)
 
 # System prompt for game assistant
 SYSTEM_PROMPT = """Bạn là trợ lý AI của KGCentral - cộng đồng game King God Castle.
 
-Kiến thức của bạn về game:
-- Team gồm 6 heroes, 25 điểm altar, 3 relics, 6 rift equipment
-- Có 70 heroes chia 5 miền: Đông (13), Tây (12), Nam (14), Bắc (19), Trung (12)
-- 6 loại altar: Hero, Blacksmith, Blood, Giant, Mage, Greed (mỗi loại max level 15)
-- 49 relics: Rương triệu hồi (13), Xâm thực (14), Đấu trường (16), Đặc biệt (6)
-- Bàn cờ 7x4, heroes có thể đặt bất kỳ vị trí nào
-- Heroes có 4 cấp sao: đồng (1-2), bạc (3-4), vàng (5-6), tím (7)
+DỮ LIỆU CHÍNH XÁC VỀ GAME:
 
-Trả lời ngắn gọn, chính xác bằng tiếng Việt. Nếu không biết, hãy nói không biết."""
+**6 HERO CLASSES:**
+- Swiftness (archer): Aramis, Hansi, Rahawk, Bombie, Bardrey
+- Courage (fighter): Evan, Leonhardt, Daniel, Jol, Mel
+- Tenacity (tank): Shelda, Chung Ah, Zuo Yun, Behemus, Rossette
+- Elemental (mage): Priya, Yeon, Lily, Draco, Zupitere, Hela
+- Shadow (assassin): Lyca, Mara, Ren, Cain
+- Mystique (support): Luniare, Asiaq, Mirsyl, Alberon
+
+**5 REGIONS:**
+- Central: Aramis, Evan, Shelda, Priya, Lyca, Mel
+- North: Leonhardt, Mara, Luniare, Rahawk, Asiaq, Bombie, Cain
+- East: Chung Ah, Yeon, Zuo Yun, Hansi
+- West: Lily, Jol, Draco, Mirsyl
+- South: Daniel, Ren, Behemus, Rossette, Zupitere, Bardrey, Alberon, Hela
+
+**TEAM:** 5-6 heroes, 25 altar points (6 loại, max 15/loại), 3 relics
+
+**6 ALTARS:** Hero, Blacksmith, Blood, Giant, Mage, Greed
+
+**TIER SYSTEM:** Tier 1-5, merge same hero hoặc Book of Power để tăng tier
+
+**TOP TIER META:** Luniare, Mano, Bardrey, Ian, Mel
+
+Trả lời ngắn gọn, chính xác bằng tiếng Việt. Dùng dữ liệu ở trên."""
 
 
 class ChatMessage(BaseModel):

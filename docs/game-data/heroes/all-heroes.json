@@ -1,0 +1,41 @@
+{
+  "heroes": [
+    {"id": "hero_aramis", "nameEn": "Aramis", "region": "central", "class": "Swiftness", "skills": ["Headshot"], "description": "Fires a powerful bullet at a single target, dealing physical normal damage equal to (130/150/170/200 + SP*0.02)% of ATK."},
+    {"id": "hero_evan", "nameEn": "Evan", "region": "central", "class": "Courage", "skills": ["Crescent Slash"], "description": "Unleash a piercing aura dealing damage to all enemies in a straight line within 1/3/5/7 horizontal blocks."},
+    {"id": "hero_shelda", "nameEn": "Shelda", "region": "central", "class": "Tenacity", "skills": ["Iron Will"], "description": "Generates Protection upon herself with her willpower."},
+    {"id": "hero_priya", "nameEn": "Priya", "region": "central", "class": "Elemental", "skills": ["Blizzard"], "description": "Deals damage and freezes enemies within range."},
+    {"id": "hero_lyca", "nameEn": "Lyca", "region": "central", "class": "Shadow", "skills": ["Natural Instinct", "Wild Fury"], "description": "Transforms into werewolf with 280% HP and 150% ATK. Charges at farthest enemy."},
+    {"id": "hero_mel", "nameEn": "Mel", "region": "central", "class": "Courage", "skills": ["Holy Blade Garna"], "description": "Strikes the Holy Blade down, then attacks with it for 5/6/7/8 sec with increased ATK."},
+    {"id": "hero_leonhardt", "nameEn": "Leonhardt", "region": "north", "class": "Courage", "skills": ["Smite"], "description": "Smites enemies with shield, dealing damage and stunning enemies."},
+    {"id": "hero_mara", "nameEn": "Mara", "region": "north", "class": "Shadow", "skills": ["Backstab"], "description": "Ambushes the target from their back, dealing SP damage."},
+    {"id": "hero_luniare", "nameEn": "Luniare", "region": "north", "class": "Mystique", "skills": ["Blessing of the Blue Moon"], "description": "Grants Protection and converts ATK/Spell Power to linked target's base stats. TOP TIER support."},
+    {"id": "hero_rahawk", "nameEn": "Rahawk", "region": "north", "class": "Swiftness", "skills": ["Hunt Command"], "description": "Deals damage to farthest enemy and reduces its AtkSpd."},
+    {"id": "hero_asiaq", "nameEn": "Asiaq", "region": "north", "class": "Mystique", "skills": ["Soul Link"], "description": "Links 3 targets with chains, making them share damage, stun and slow effects."},
+    {"id": "hero_bombie", "nameEn": "Bombie", "region": "north", "class": "Swiftness", "skills": ["Rain of Bombs"], "description": "Throws bombs to random enemies with extra speed."},
+    {"id": "hero_cain", "nameEn": "Cain", "region": "north", "class": "Shadow", "skills": ["Circus of Death"], "description": "Deals damage to enemy with lowest HP ratio. Damage increases per target's lost HP."},
+    {"id": "hero_chung_ah", "nameEn": "Chung Ah", "region": "east", "class": "Tenacity", "skills": ["Horizontal Dragon Edge", "Azure Dragon Slash"], "description": "Deals damage in front. After 3 casts, Azure Dragon Slash deals 2.5x damage in wide range."},
+    {"id": "hero_yeon", "nameEn": "Yeon", "region": "east", "class": "Elemental", "skills": ["Calm and Stormy"], "description": "Launch wave hitting enemy and ally back and forth, dealing damage and healing."},
+    {"id": "hero_zuo_yun", "nameEn": "Zuo Yun", "region": "east", "class": "Tenacity", "skills": ["Enrage"], "description": "Increases Attack Speed by (50 + SP)% for 3/5/7/9 sec."},
+    {"id": "hero_hansi", "nameEn": "Hansi", "region": "east", "class": "Swiftness", "skills": ["Rapid Arrows"], "description": "Attacks 3/4/5/6 more times for 6 sec."},
+    {"id": "hero_lily", "nameEn": "Lily", "region": "west", "class": "Elemental", "skills": ["Summon Golem", "Vitality of Nature"], "description": "Summons Sha-Sha golem with 150% HP/ATK. Heals HP."},
+    {"id": "hero_jol", "nameEn": "Jol", "region": "west", "class": "Courage", "skills": ["Avatar"], "description": "For 4 sec, increases DEF, becomes immune to CC, gains 100% Spell HP Drain."},
+    {"id": "hero_draco", "nameEn": "Draco", "region": "west", "class": "Elemental", "skills": ["Flamebreath"], "description": "Breathes flame dealing damage to enemies in front 15 times."},
+    {"id": "hero_mirsyl", "nameEn": "Mirsyl", "region": "west", "class": "Mystique", "skills": ["Verdant Garden"], "description": "Forms magical garden that damages enemies and heals allies."},
+    {"id": "hero_daniel", "nameEn": "Daniel", "region": "south", "class": "Courage", "skills": ["Judgment of Light"], "description": "Smashes hammer dealing damage to all enemies in blocks nearby."},
+    {"id": "hero_ren", "nameEn": "Ren", "region": "south", "class": "Shadow", "skills": ["Full Bloom"], "description": "Deal damage multiple times in front. Attack count increases (Max 6 times)."},
+    {"id": "hero_behemus", "nameEn": "Behemus", "region": "south", "class": "Tenacity", "skills": ["Reckless Protection"], "description": "Lands in front of ally, dealing damage and pushing enemies back."},
+    {"id": "hero_rossette", "nameEn": "Rossette", "region": "south", "class": "Tenacity", "skills": ["Giant Smite"], "description": "Leaps to strike dealing SP + % of target's Max HP damage."},
+    {"id": "hero_zupitere", "nameEn": "Zupitere", "region": "south", "class": "Elemental", "skills": ["Crackle"], "description": "Discharges lightning that bounces between enemies."},
+    {"id": "hero_bardrey", "nameEn": "Bardrey", "region": "south", "class": "Swiftness", "skills": ["Lilting Melody"], "description": "Recovers MP of all nearby allies. TOP TIER support."},
+    {"id": "hero_alberon", "nameEn": "Alberon", "region": "south", "class": "Mystique", "skills": ["Radiance of Life"], "description": "Recovers HP of himself and all nearby allies."},
+    {"id": "hero_hela", "nameEn": "Hela", "region": "south", "class": "Elemental", "skills": ["Summon Meteor"], "description": "Drops meteors dealing damage to enemies within range multiple times."}
+  ],
+  "stats": {
+    "total": 29,
+    "byRegion": {"central": 6, "north": 7, "east": 4, "west": 4, "south": 8},
+    "byClass": {"Swiftness": 5, "Courage": 5, "Tenacity": 6, "Elemental": 6, "Shadow": 4, "Mystique": 4}
+  },
+  "classes": ["Swiftness", "Courage", "Tenacity", "Elemental", "Shadow", "Mystique"],
+  "regions": ["central", "north", "east", "west", "south"],
+  "topTierMeta": ["Luniare", "Bardrey", "Mel", "Mano", "Ian", "Kirdan", "Garam", "Tia", "Haerang", "Neria"]
+}

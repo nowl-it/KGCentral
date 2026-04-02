@@ -1,11 +1,12 @@
 # KGCentral AI Service
 
-Dịch vụ AI inference của KGCentral, xây dựng bằng **FastAPI** và **PyTorch**, được tối ưu cho **Raspberry Pi** (CPU-only).
+Dịch vụ AI inference của KGCentral, xây dựng bằng **FastAPI** và **PyTorch**, được tối ưu cho **Raspberry Pi 4** (CPU-only).
 
 ## Tech Stack
 
 - **FastAPI 0.115.12** - Web framework ✅
-- **PyTorch 2.6.0** - Deep learning inference 🔴 **NOT INTEGRATED** (installed but unused)
+- **PyTorch 2.6.0** - Deep learning inference ✅
+- **Ollama + Qwen2.5:3b** - AI Chat (LLM local) ✅
 - **Pydantic 2.10.0** - Data validation & settings ✅
 - **uvicorn** - ASGI server ✅
 - **Python** ≥ 3.12 ✅
@@ -13,55 +14,112 @@ Dịch vụ AI inference của KGCentral, xây dựng bằng **FastAPI** và **P
 
 ## Implementation Status
 
-### ✅ Infrastructure Complete
+### ✅ Fully Implemented
 
+- **AI Chat** - Chat với Qwen2.5:3b qua Ollama (tiếng Việt tốt)
+- **Game Data API** - Load heroes/relics từ JSON files
+- **Team Synergy Calculator** - Tính điểm synergy với 4 factors
+- **PyTorch Neural Networks** - TeamRecommender model (128K params)
+- **Health check** - `/health` endpoint
 - FastAPI server structure
-- Route organization (/health, /api/v1/inference, /api/v1/models)
+- Route organization
 - Pydantic Settings configuration
 - CORS middleware
 - i18n support (Vietnamese/English)
 - API documentation (Swagger/ReDoc)
 
-### 🔴 AI Functionality NOT Implemented
+### 🔲 Planned
 
-- **PyTorch NOT INTEGRATED** - Zero `import torch` statements in codebase
-- **No model files exist** - `/models` directory is unused
-- **No tensor processing** - No actual computation
-- **All endpoints return MOCK DATA:**
-  - `POST /api/v1/inference/` → Returns hardcoded `{"prediction": "mock_result", "confidence": 0.95}`
-  - `GET /api/v1/models/` → Returns hardcoded list of 2 fake models
-  - `POST /api/v1/models/load` → Stub only (returns success without action)
-  - `POST /api/v1/models/unload` → Stub only (returns success without action)
-- **Synergy Scoring Algorithm** - Not implemented (core feature missing)
-- **Model loading logic** - No `torch.load()`, no device placement
-- **Inference execution** - No forward pass, no predictions
-
-**Total AI Service Code:** ~60 LOC (mostly routing boilerplate)
+- Neural network training với real data
+- Model fine-tuning cho game-specific recommendations
 
 ## Cấu Trúc
 
 ```
 src/
-├── main.py          # FastAPI app, CORS, router registration (28 lines)
-├── config.py        # Settings (Pydantic BaseSettings) (14 lines)
-├── i18n.py          # i18n setup (vi/en) (12 lines)
+├── main.py              # FastAPI app, CORS, router registration
+├── config.py            # Settings (Pydantic BaseSettings)
+├── i18n.py              # i18n setup (vi/en)
+├── game_data.py         # Load heroes/relics từ JSON
+├── synergy.py           # Team synergy calculator
+├── ai_manager.py        # PyTorch model manager
+├── training.py          # Training utilities
+├── models/
+│   ├── __init__.py
+│   └── neural_nets.py   # HeroEmbedding, TeamSynergyNet, TeamRecommender
 └── routes/
-    ├── __init__.py
-    ├── health.py     # Health check endpoint (10 lines) ✅ Working
-    ├── inference.py  # AI inference endpoint (31 lines) 🔴 Returns mock data
-    └── models.py     # Model management (27 lines) 🔴 Stubs only
+    ├── health.py        # Health check ✅
+    ├── inference.py     # AI inference
+    ├── models.py        # Model management
+    ├── game.py          # Game data API ✅
+    └── chat.py          # AI Chat với Ollama ✅
 ```
 
-**Total:** ~122 LOC (including comments and blanks)
+## API Endpoints
 
-**🔴 What's Missing:**
-- Model loading implementation
-- PyTorch integration
-- Tensor preprocessing
-- Inference logic
-- Synergy scoring algorithm
-- Model caching/management
-- Error handling for real failures
+### Health
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/health` | Health check |
+
+### Chat (AI Assistant)
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/api/v1/chat/status` | Check Ollama & model status |
+| `POST` | `/api/v1/chat/` | Chat với AI về King God Castle |
+| `POST` | `/api/v1/chat/quick` | Quick chat (không cần history) |
+
+**Chat Request:**
+```json
+{
+  "message": "Có bao nhiêu heroes trong game?",
+  "history": []
+}
+```
+
+**Chat Response:**
+```json
+{
+  "response": "Tổng số heroes trong game là 70.",
+  "model": "qwen2.5:3b"
+}
+```
+
+### Game Data
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/api/v1/game/heroes` | Danh sách tất cả heroes |
+| `GET` | `/api/v1/game/heroes/region/{region}` | Heroes theo vùng |
+| `GET` | `/api/v1/game/heroes/{hero_id}` | Chi tiết hero |
+| `GET` | `/api/v1/game/relics` | Danh sách relics |
+| `POST` | `/api/v1/game/team/analyze` | Phân tích team synergy |
+
+**Team Analysis Request:**
+```json
+{
+  "hero_ids": ["hero_east_001", "hero_west_001", ...],
+  "altar_build": {"hero": 10, "blacksmith": 5, ...},
+  "relic_ids": ["relic_summon_001", ...]
+}
+```
+
+**Team Analysis Response:**
+```json
+{
+  "total_score": 79.0,
+  "grade": "A",
+  "breakdown": {
+    "region_synergy": {"score": 40, "dominant_region": "east"},
+    "class_balance": {"score": 100, "variety": 6},
+    "altar_match": {"score": 70},
+    "relic_synergy": {"score": 100}
+  },
+  "recommendations": ["Consider adding more heroes from east region"]
+}
+```
 
 ## Cấu Hình
 
@@ -73,20 +131,30 @@ MODEL_DIR=/models
 DEFAULT_LOCALE=vi
 ```
 
-| Biến | Mặc định | Mô tả |
-|------|----------|--------|
-| `DEVICE` | `cpu` | Thiết bị tính toán (`cpu` cho Raspberry Pi) |
-| `LOG_LEVEL` | `info` | Mức log |
-| `MODEL_DIR` | `/models` | Thư mục chứa model files |
-| `DEFAULT_LOCALE` | `vi` | Ngôn ngữ mặc định |
-
 ## Chạy Development
 
+### 1. Setup Ollama (cho AI Chat)
+
 ```bash
+# Cài đặt Ollama (nếu chưa có)
+curl -fsSL https://ollama.com/install.sh | sh
+
+# Pull model (chọn 1 trong 2)
+ollama pull qwen2.5:3b   # Nhẹ, phù hợp RPi4 (~2GB RAM)
+ollama pull qwen2.5:7b   # Chất lượng cao hơn (~5GB RAM)
+```
+
+### 2. Chạy AI Service
+
+```bash
+cd apps/ai-service
+
+# Tạo virtual environment
+python3 -m venv venv
+source venv/bin/activate
+
 # Cài đặt dependencies
-pip install -e ".[dev]"
-# hoặc dùng uv
-uv pip install -e ".[dev]"
+pip install fastapi uvicorn httpx torch pydantic-settings
 
 # Chạy server
 uvicorn src.main:app --reload --host 0.0.0.0 --port 5000
@@ -96,146 +164,27 @@ Server chạy tại [http://localhost:5000](http://localhost:5000).
 
 API docs (Swagger): [http://localhost:5000/docs](http://localhost:5000/docs)
 
-## API Reference
+## Raspberry Pi 4 Compatibility
 
-> ⚠️ **All AI endpoints return MOCK DATA only!**
+| Component | RAM | RPi4 8GB |
+|-----------|-----|----------|
+| OS + overhead | ~1GB | ✅ |
+| Qwen2.5:3b | ~2.5GB | ✅ |
+| FastAPI + PyTorch | ~500MB | ✅ |
+| **Total** | ~4GB | ✅ Còn dư ~4GB |
 
-### Health
-
-| Method | Endpoint | Status | Description |
-|--------|----------|--------|-------------|
-| `GET` | `/health` | ✅ Working | Returns `{"status": "ok", "service": "ai-service", "version": "1.0.0"}` |
-
-### Inference
-
-| Method | Endpoint | Status | Description |
-|--------|----------|--------|-------------|
-| `POST` | `/api/v1/inference/` | 🔴 Mock Only | Returns hardcoded prediction |
-| `GET` | `/api/v1/inference/models` | 🔴 Mock Only | Returns hardcoded model list |
-
-**Request body (ignored):**
-```json
-{
-  "model_name": "synergy-scorer",
-  "input_data": { "heroes": ["hero1", "hero2", "hero3"] },
-  "parameters": { "threshold": 0.5 }
-}
-```
-
-**Response (hardcoded):**
-```json
-{
-  "success": true,
-  "model_name": "synergy-scorer",
-  "output": {
-    "prediction": "mock_result",  // ⚠️ Always same value
-    "confidence": 0.95             // ⚠️ Always same value
-  },
-  "inference_time_ms": 123.45      // ⚠️ Always same value
-}
-```
-
-**🔴 Current Implementation:**
-```python
-# routes/inference.py (lines 21-31)
-@router.post("/", response_model=InferenceResponse)
-async def predict(request: InferenceRequest):
-    try:
-        # request.input_data is IGNORED!
-        # request.parameters is IGNORED!
-        return InferenceResponse(
-            success=True,
-            model_name=request.model_name,
-            output={"prediction": "mock_result", "confidence": 0.95},  # ⚠️ HARDCODED
-            inference_time_ms=123.45,  # ⚠️ HARDCODED
-        )
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-```
-
-### Models
-
-| Method | Endpoint | Status | Description |
-|--------|----------|--------|-------------|
-| `GET` | `/api/v1/models/` | 🔴 Mock Only | Returns list of 2 fake models (image-classifier, object-detector) |
-| `POST` | `/api/v1/models/load` | 🔴 Stub Only | Returns success without loading anything |
-| `POST` | `/api/v1/models/unload` | 🔴 Stub Only | Returns success without unloading anything |
-
-**Model List Response (hardcoded):**
-```json
-{
-  "models": [
-    {
-      "name": "image-classifier",
-      "status": "loaded",
-      "device": "cpu"
-    },
-    {
-      "name": "object-detector",
-      "status": "unloaded",
-      "device": "cpu"
-    }
-  ]
-}
-```
-
-**🔴 No actual model management:** Models don't exist, status is fake.
+**Recommend cho RPi4:** `qwen2.5:3b` (balance tốt giữa chất lượng và performance)
 
 ## i18n
 
-✅ **Status:** Fully implemented
-
-Service has its own i18n system for messages:
+Service hỗ trợ đa ngôn ngữ:
 
 ```python
 from src.i18n import t
 
 t("health.ok")              # "Dịch vụ hoạt động tốt" (Vietnamese)
 t("health.ok", locale="en") # "Service is healthy" (English)
-t("inference.error")        # "Lỗi khi chạy inference"
 ```
-
-**Supported languages:**
-- Vietnamese (vi) - default
-- English (en)
-
-**Namespaces available:**
-- `health` - Health check messages
-- `inference` - Inference error messages
-- `models` - Model management messages
-
-## What Needs to Be Implemented
-
-### Phase 1: PyTorch Integration
-1. Import PyTorch in inference.py
-2. Load model files from MODEL_DIR
-3. Handle device placement (CPU for Raspberry Pi)
-4. Implement model caching (singleton pattern)
-
-### Phase 2: Synergy Scoring Algorithm
-1. Define hero synergy matrix
-2. Implement synergy calculation logic
-3. Team composition scoring
-4. Recommendation algorithm (greedy + beam search)
-
-### Phase 3: Real Inference
-1. Process input_data (hero IDs, team composition)
-2. Run forward pass through model
-3. Calculate actual inference time
-4. Return real predictions
-
-### Phase 4: Model Management
-1. Implement actual model loading from disk
-2. Memory management (load/unload)
-3. Model versioning
-4. Health checks for loaded models
-
-### Phase 5: Production Features
-1. Authentication (verify JWT from backend)
-2. Rate limiting
-3. Request logging
-4. Error handling and recovery
-5. Performance monitoring
 
 ## Docker
 
@@ -249,5 +198,4 @@ docker run -p 5000:5000 kgcentral-ai
 ```bash
 ruff check src/
 ruff format src/
-pyright src/
 ```

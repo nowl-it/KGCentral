@@ -1,0 +1,14 @@
+{
+  "relics": [
+    {"id": "relic_great_sword_empire", "nameEn": "Great Sword of the Empire", "type": "Normal", "effect": "+25%→40% melee attack for sword item", "maxLevel": 4},
+    {"id": "relic_staff_frozen_land", "nameEn": "Staff of Frozen Land", "type": "Normal", "effect": "+25%→40% spell power for magic item", "maxLevel": 4},
+    {"id": "relic_bow_eternal_forest", "nameEn": "Bow of Eternal Forest", "type": "Normal", "effect": "+25%→40% attack speed for bow item", "maxLevel": 4},
+    {"id": "relic_armor_kingdom", "nameEn": "Armor of the Kingdom", "type": "Normal", "effect": "+25%→40% protection for armor item", "maxLevel": 4},
+    {"id": "relic_crown_goblins", "nameEn": "Crown of Goblins", "type": "Rare", "effect": "+4%→10% gold earning in invasion", "maxLevel": 4},
+    {"id": "relic_light_of_glory", "nameEn": "Light of Glory", "type": "Corruption", "effect": "Increase Hero Altar +2~5 + level-up chance with Book of Power", "maxLevel": 4},
+    {"id": "relic_hammer_of_blaze", "nameEn": "Hammer of Blaze", "type": "Corruption", "effect": "Increase Blacksmith Altar +2~5 + tier-up chance when combining equipment", "maxLevel": 4}
+  ],
+  "types": ["Normal", "Rare", "Corruption", "Arena", "Special"],
+  "maxLevel": 4,
+  "equipSlots": 3
+}

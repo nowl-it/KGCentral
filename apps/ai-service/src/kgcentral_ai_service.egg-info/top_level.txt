@@ -1,6 +1,9 @@
+ai_manager
 config
 game_data
 i18n
 main
+models
 routes
 synergy
+training

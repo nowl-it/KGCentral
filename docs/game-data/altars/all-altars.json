@@ -1,0 +1,77 @@
+{
+  "altars": [
+    {
+      "id": "altar_hero",
+      "nameEn": "Hero Altar",
+      "nameVi": "Tế Đàn Anh Hùng",
+      "effects": {
+        "level1": "X% Level Up by Summon (chance to upgrade hero tier when summoning)",
+        "level5": "X% Level Up By Merge (chance to upgrade hero tier when merging)",
+        "level10": "Gain Book of Power Lv.1 at start",
+        "level15": "Gain Book of Power Lv.2 at start"
+      }
+    },
+    {
+      "id": "altar_blacksmith",
+      "nameEn": "Blacksmith Altar",
+      "nameVi": "Tế Đàn Thợ Rèn",
+      "effects": {
+        "level1": "X*2% Tier Up by Smelt",
+        "level5": "Smelt Tier 1 Item at start",
+        "level10": "Smelt Tier 2 Item + 1 Smelt Reroll",
+        "level15": "Smelt Tier 3 Item + 2 Smelt Reroll"
+      }
+    },
+    {
+      "id": "altar_blood",
+      "nameEn": "Blood Altar",
+      "nameVi": "Tế Đàn Máu",
+      "effects": {
+        "level1": "X*2% HP Drain (Attack/Spell)",
+        "level5": "+X% Final ATK",
+        "level10": "Mighty Block 2 times at start",
+        "level15": "Mighty Block 3 times at start"
+      }
+    },
+    {
+      "id": "altar_giant",
+      "nameEn": "Giant Altar",
+      "nameVi": "Tế Đàn Khổng Lồ",
+      "effects": {
+        "level1": "+15 DEF (scales to +225 at max)",
+        "level5": "+X% Final HP",
+        "level10": "+10% Reflect damage",
+        "level15": "+20% Reflect damage (halved for Spell)"
+      }
+    },
+    {
+      "id": "altar_mage",
+      "nameEn": "Mage Altar",
+      "nameVi": "Tế Đàn Pháp Sư",
+      "effects": {
+        "level1": "X*5% Initial MP",
+        "level5": "+X% Final Spell Power",
+        "level10": "+50% MP upon kill",
+        "level15": "+99% MP upon kill"
+      }
+    },
+    {
+      "id": "altar_greed",
+      "nameEn": "Greed Altar",
+      "nameVi": "Tế Đàn Tham Lam",
+      "effects": {
+        "level1": "+X Initial Silver",
+        "level5": "+X Elite Round Silver",
+        "level10": "20% Sale on Wandering Merchant",
+        "level15": "40% Sale on Wandering Merchant"
+      }
+    }
+  ],
+  "maxLevel": 15,
+  "totalPoints": 25,
+  "popularCombos": [
+    "15 Hero + 10 Greed (Economy)",
+    "15 Blacksmith + 10 Hero (Fast clear)",
+    "15 Blood + 10 Giant (Sustain tank)"
+  ]
+}

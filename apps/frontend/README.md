@@ -23,6 +23,7 @@ Xây dựng bằng **Next.js 16** (App Router) và **React 19**.
 | Route | Component | Description |
 |-------|-----------|-------------|
 | `/` | `app/page.tsx` | Landing page với hero section, 6 feature cards, CTAs |
+| `/chat` | `app/chat/page.tsx` | **AI Chat** - Trò chuyện với AI về King God Castle |
 | `/not-found` | `app/not-found.tsx` | Custom 404 page với animations |
 | `/secret/color-palette` | `app/(secret)/secret/color-palette/page.tsx` | Design system reference (internal) |
 
@@ -199,6 +200,7 @@ const welcome = t('notFound.title'); // "Page Not Found"
 ### ✅ Working
 
 - **Landing Page** - Hero section, 6 feature cards, CTAs
+- **AI Chat** - Chat với AI về game (Qwen2.5 via Ollama)
 - **Navigation** - Sticky menu with dropdown structure
 - **Theme Switching** - Light/Dark/System modes
 - **i18n** - Vietnamese/English full support

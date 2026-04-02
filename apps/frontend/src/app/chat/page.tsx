@@ -3,7 +3,7 @@
 import { Button } from '@kgcentral/ui/components/button';
 import { cn } from '@kgcentral/ui/lib/utils';
 import { Bot, Crown, Loader2, Send, Sparkles, User } from 'lucide-react';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface Message {
 	id: string;
@@ -30,15 +30,6 @@ export default function ChatPage() {
 	const [error, setError] = useState<string | null>(null);
 	const messagesEndRef = useRef<HTMLDivElement>(null);
 	const inputRef = useRef<HTMLTextAreaElement>(null);
-
-	// Scroll to bottom when messages change
-	const scrollToBottom = useCallback(() => {
-		messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-	}, []);
-
-	useEffect(() => {
-		scrollToBottom();
-	}, [messages, scrollToBottom]);
 
 	// Check chat status on mount
 	useEffect(() => {
@@ -198,7 +189,7 @@ export default function ChatPage() {
 								{/* Avatar */}
 								<div
 									className={cn(
-										'flex-shrink-0 size-8 rounded-full flex items-center justify-center',
+										'shrink-0 size-8 rounded-full flex items-center justify-center',
 										message.role === 'user' ? 'bg-primary' : 'bg-accent/20'
 									)}
 								>
@@ -239,7 +230,7 @@ export default function ChatPage() {
 						{/* Loading indicator */}
 						{isLoading && (
 							<div className="flex gap-3">
-								<div className="flex-shrink-0 size-8 rounded-full bg-accent/20 flex items-center justify-center">
+								<div className="shrink-0 size-8 rounded-full bg-accent/20 flex items-center justify-center">
 									<Bot className="size-4 text-accent" />
 								</div>
 								<div className="bg-muted rounded-2xl rounded-tl-sm px-4 py-3">
@@ -265,35 +256,36 @@ export default function ChatPage() {
 			)}
 
 			{/* Input */}
-			<div className="border-t border-border pt-4">
-				<div className="flex gap-2 items-end">
-					<textarea
-						ref={inputRef}
-						value={input}
-						onChange={handleInputChange}
-						onKeyDown={handleKeyDown}
-						placeholder="Hỏi về King God Castle..."
-						disabled={!status?.ready || isLoading}
-						rows={1}
-						className="flex-1 resize-none bg-muted rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/50 disabled:opacity-50 disabled:cursor-not-allowed"
-					/>
-					<Button
-						onClick={sendMessage}
-						disabled={!input.trim() || !status?.ready || isLoading}
-						size="icon"
-						className="size-12 rounded-xl shrink-0"
-					>
-						{isLoading ? (
-							<Loader2 className="size-5 animate-spin" />
-						) : (
-							<Send className="size-5" />
-						)}
-					</Button>
+			{(status?.ready || isLoading) && (
+				<div className="border-t border-border pt-4">
+					<div className="flex gap-2 items-end">
+						<textarea
+							ref={inputRef}
+							value={input}
+							onChange={handleInputChange}
+							onKeyDown={handleKeyDown}
+							placeholder="Hỏi về King God Castle..."
+							rows={1}
+							className="flex-1 resize-none bg-muted rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/50 disabled:opacity-50 disabled:cursor-not-allowed"
+						/>
+						<Button
+							onClick={sendMessage}
+							disabled={!input.trim()}
+							size="icon"
+							className="size-12 rounded-xl shrink-0"
+						>
+							{isLoading ? (
+								<Loader2 className="size-5 animate-spin" />
+							) : (
+								<Send className="size-5" />
+							)}
+						</Button>
+					</div>
+					<p className="text-[10px] text-muted-foreground text-center mt-2">
+						Powered by Qwen2.5 • Shift+Enter để xuống dòng
+					</p>
 				</div>
-				<p className="text-[10px] text-muted-foreground text-center mt-2">
-					Powered by Qwen2.5 • Shift+Enter để xuống dòng
-				</p>
-			</div>
+			)}
 		</div>
 	);
 }

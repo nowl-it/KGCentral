@@ -57,8 +57,14 @@ pnpm --filter @kgcentral/backend lint
 Python project using `pyproject.toml` and `ruff` for linting.
 
 ```bash
+# Setup Ollama (for AI Chat)
+ollama pull qwen2.5:3b  # Lightweight, RPi4 compatible
+
 # Development server (:5000)
 cd apps/ai-service
+python3 -m venv venv
+source venv/bin/activate
+pip install fastapi uvicorn httpx torch pydantic-settings
 uvicorn src.main:app --reload --host 0.0.0.0 --port 5000
 
 # Lint Python code
@@ -94,7 +100,7 @@ This is a **pnpm workspaces + Turborepo** monorepo with three main apps and five
 apps/
 ├── frontend/      - Next.js 16, React 19 (:3000)
 ├── backend/       - NestJS 11 REST API (:4000)
-└── ai-service/    - FastAPI + PyTorch AI inference (:5000)
+└── ai-service/    - FastAPI + PyTorch + Ollama AI (:5000)
 
 packages/
 ├── config/        - Shared app configuration
@@ -191,9 +197,11 @@ apps/ai-service/src/
 **Settings**: Use Pydantic Settings for environment variables
 
 > **⚠️ AI Service Status:**
-> - PyTorch is NOT integrated (installed but unused)
-> - All endpoints return MOCK/HARDCODED data
-> - Synergy scoring algorithm not implemented (0%)
+> - ✅ AI Chat with Qwen2.5:3b (Ollama) - working
+> - ✅ Game Data API (heroes, relics) - working
+> - ✅ Team Synergy Calculator - working  
+> - ✅ PyTorch neural networks defined
+> - 🔲 Model training with real data - planned
 
 ### Next.js Frontend Structure
 
@@ -212,6 +220,7 @@ apps/frontend/src/
 
 > **⚠️ Implementation Status:**
 > - ✅ Landing page, navigation, i18n, theme switching (30% complete)
+> - ✅ AI Chat page (`/chat`) - working
 > - 🔲 Wiki pages, Team Builder, AI Recommendations not yet built (0%)
 
 ### Prisma Schema Conventions
@@ -257,26 +266,29 @@ pnpm k3s:undeploy     # Remove from dev environment
 - **NestJS**: 11 (11.0.8)
 - **Tailwind CSS**: 4.2 (4.2.2)
 - **FastAPI**: 0.115.12
-- **PyTorch**: 2.6.0 (not yet integrated)
+- **PyTorch**: 2.6.0
+- **Ollama**: Qwen2.5:3b (for AI Chat)
 
 ## Implementation Status Summary
 
 ### ✅ Completed
 - Frontend infrastructure (landing page, navigation, i18n, theme)
+- **AI Chat** - Chat UI + Qwen2.5:3b backend
+- **Game Data API** - Heroes, relics from JSON files
+- **Team Synergy Calculator** - 4-factor scoring system
 - Backend basic auth (login/register with JWT)
 - All 5 shared packages (config, database, i18n, types, ui)
 - DevOps configs (Docker, K8s)
 
 ### 🔴 Critical Issues
 - No JWT authentication guards (endpoints unprotected)
-- PyTorch not integrated in AI service (mock data only)
 - Hardcoded secrets in Docker/K8s configs
 - Only User model in database (5% of schema)
 
 ### 🔲 Not Yet Implemented
 - Wiki pages (Heroes, Equipment, Altars, Relics) - 0%
 - Team Builder UI and backend - 0%
-- AI recommendation algorithm - 0%
+- Neural network training with real data - 0%
 - Tier List voting - 0%
 - Forum/Community features - 0%
 
